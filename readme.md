@@ -6,7 +6,7 @@
 Sistema para el control del mantenimiento (mantenimiento correctivo, mantenimiento preventivo) de maquinaria pesada, asi mismo de los materiales, repuestos, accesorios uitlizados. 
 Además de la descripcion del trabajo realizado a cada maquinaria,y personal ha cargo del mantenimiento.
 
-*Nota: Sistema trabajado sobre el framwork [Laravel Vers.5.4](https://laravel.com/docs/5.4)*
+*Nota: Sistema trabajado sobre el framework [Laravel Ver.5.4](https://laravel.com/docs/5.4)*
 
 ##Requerimientos
 
