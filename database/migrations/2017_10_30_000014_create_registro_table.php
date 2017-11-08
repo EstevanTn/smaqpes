@@ -30,7 +30,7 @@ class CreateRegistroTable extends Migration
             $table->time('hora_llegada_retorno')->nullable();
             $table->decimal('horometro', 10, 4);
             $table->decimal('kilometraje', 10, 4);
-            $table->char('estado_maquinaria', 1);
+            $table->char('estado_maquinaria', 1)->nullable();
             $table->string('lugar_encontrado', 350)->nullable();
             $table->integer('id_operador');
             $table->integer('id_mecanico');

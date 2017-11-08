@@ -94,7 +94,7 @@
                         <div class="form-group {{ $errors->has('fecha_nacimiento') ? 'has-error' : '' }}">
                             <label for="fecha_nacimiento" class="control-label col-xs-4">Fecha Nacimiento</label>
                             <div class="col-xs-8">
-                                <input placeholder="dd/mm/yyyy" type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" value="{{ isset($personal) ? $personal->fecha_nacimiento : old('fecha_nacimiento') }}" />
+                                <input data-toggle="datepicker" type="text" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" value="{{ isset($personal) ? $personal->fecha_nacimiento : old('fecha_nacimiento') }}" />
                                 @if($errors->has('fecha_nacimiento'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
@@ -140,7 +140,7 @@
                         <div class="form-group {{ $errors->has('fecha_contrato') ? 'has-error' : '' }}">
                             <label for="fecha_contrato" class="control-label col-xs-4">Fecha Contrato</label>
                             <div class="col-xs-8">
-                                <input placeholder="dd/mm/yyyy" type="text" class="form-control" name="fecha_contrato" id="fecha_contrato" value="{{ isset($personal) ? $personal->fecha_contrato : old('fecha_contrato') }}" />
+                                <input data-toggle="datepicker" type="text" class="form-control" name="fecha_contrato" id="fecha_contrato" value="{{ isset($personal) ? $personal->fecha_contrato : old('fecha_contrato') }}" />
                                 @if($errors->has('fecha_contrato'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fecha_contrato') }}</strong>
@@ -151,7 +151,7 @@
                         <div class="form-group {{ $errors->has('fecha_ingreso') ? 'has-error' : '' }}">
                             <label for="fecha_ingreso" class="control-label col-xs-4">Fecha Ingreso</label>
                             <div class="col-xs-8">
-                                <input placeholder="dd/mm/yyyy" type="text" class="form-control" name="fecha_ingreso" id="fecha_ingreso" value="{{ isset($personal) ? $personal->fecha_ingreso : old('fecha_ingreso') }}" />
+                                <input data-toggle="datepicker" type="text" class="form-control" name="fecha_ingreso" id="fecha_ingreso" value="{{ isset($personal) ? $personal->fecha_ingreso : old('fecha_ingreso') }}" />
                                 @if($errors->has('fecha_ingreso'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('fecha_ingreso') }}</strong>

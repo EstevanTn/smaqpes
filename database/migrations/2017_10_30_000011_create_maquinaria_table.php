@@ -15,6 +15,7 @@ class CreateMaquinariaTable extends Migration
     {
         Schema::create('maquinaria', function (Blueprint $table) {
             $table->increments('id_maquinaria');
+            $table->integer('id_tipo_maquinaria');
             $table->string('nombre', 200);
             $table->integer('anio_fabricacion');
             $table->string('marca', 50);
@@ -24,6 +25,9 @@ class CreateMaquinariaTable extends Migration
             $table->date('fecha_adquisicion');
             $table->boolean('eliminado');
             $table->timestamps();
+            $table->foreign('id_tipo_maquinaria')
+                ->references('id_tipo_maquinaria')
+                ->on('tipo_maquinaria');
         });
     }
 

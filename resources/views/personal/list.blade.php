@@ -37,48 +37,64 @@
                         </div>
                     </form>
                 </div>
-                <div class="panel-footer">
-                    <a href="{{ route('personal.create') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
-                </div>
             </div>
         </div>
     </div>
-    {{ $personal->links() }}
-    <table class="table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th class="text-center" style="width: 10%">Tipo Doc.</th>
-                <th style="width: 12%">Número Doc.</th>
-                <th style="width: 25%">Nombres y Apellidos</th>
-                <th style="width: 15%">Área</th>
-                <th style="width: 18%">Cargo</th>
-                <th style="width: 10%">Sueldo</th>
-                <th style="width: 10%">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if(count($personal))
-                @foreach($personal as $empleado)
-                    <tr>
-                        <td class="text-center">{{ $empleado->siglas }}</td>
-                        <td>{{ $empleado->numero_documento }}</td>
-                        <td>{{ $empleado->nombres.' '.$empleado->apellidos }}</td>
-                        <td>{{ $empleado->area }}</td>
-                        <td>{{ $empleado->cargo }}</td>
-                        <td class="text-right">{{ $empleado->sueldo_base }}</td>
-                        <td>
-                            <a data-toggle="tooltip" title="Editar" href="{{ route('personal.edit', [ 'id' => $empleado->id_personal ]) }}" class="btn btn-link"><i class="glyphicon glyphicon-edit"></i></a>
-                            <a data-toggle="tooltip" title="Eliminar" href="javascript: delete_reg('{{ route('personal.delete', [ 'id' => $empleado->id_personal ]) }}')" class="btn btn-link"><i class="glyphicon glyphicon-remove"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
-            @else
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="btn-group" style="margin-bottom: 15px;">
+                <a href="{{ route('personal.create') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {{ $personal->links() }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
                 <tr>
-                    <td colspan="7">No se han encontrado datos.</td>
+                    <th class="text-center" style="width: 10%">Tipo Doc.</th>
+                    <th style="width: 12%">Número Doc.</th>
+                    <th style="width: 25%">Nombres y Apellidos</th>
+                    <th style="width: 15%">Área</th>
+                    <th style="width: 18%">Cargo</th>
+                    <th style="width: 10%">Sueldo</th>
+                    <th style="width: 10%">Acciones</th>
                 </tr>
-            @endif
-        </tbody>
-    </table>
-    {{ $personal->links() }}
+                </thead>
+                <tbody>
+                @if(count($personal))
+                    @foreach($personal as $empleado)
+                        <tr>
+                            <td class="text-center">{{ $empleado->siglas }}</td>
+                            <td>{{ $empleado->numero_documento }}</td>
+                            <td>{{ $empleado->nombres.' '.$empleado->apellidos }}</td>
+                            <td>{{ $empleado->area }}</td>
+                            <td>{{ $empleado->cargo }}</td>
+                            <td class="text-right">{{ $empleado->sueldo_base }}</td>
+                            <td>
+                                <a data-toggle="tooltip" title="Editar" href="{{ route('personal.edit', [ 'id' => $empleado->id_personal ]) }}" class="btn btn-link"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a data-toggle="tooltip" title="Eliminar" href="javascript: delete_reg('{{ route('personal.delete', [ 'id' => $empleado->id_personal ]) }}')" class="btn btn-link"><i class="glyphicon glyphicon-remove"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="7">No se han encontrado datos.</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {{ $personal->links() }}
+        </div>
+    </div>
 </div>
 @endsection

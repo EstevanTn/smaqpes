@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipoMaterialTable extends Migration
+class CreateTipoMaquinaria extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTipoMaterialTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_material', function (Blueprint $table) {
-            $table->increments('id_tipo_material');
-            $table->integer('id_tipo_material_padre')->nullable();
+        Schema::create('tipo_maquinaria', function (Blueprint $table) {
+            $table->increments('id_tipo_maquinaria');
             $table->string('nombre', 50);
-            $table->string('descripcion', 350)->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTipoMaterialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_material');
+        Schema::dropIfExists('tipo_maquinaria');
     }
 }

@@ -15,13 +15,40 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <form action="{{ route('maquinarias.store') }}" method="post" class="form-horizontal">
+                    <form id="frmMaquinaria" action="{{ route('maquinarias.store') }}" method="post" class="form-horizontal">
                         {{ csrf_field() }}
                         <input type="hidden" name="id_maquinaria" id="id_maquinaria" value="{{ isset($maquinaria) ? $maquinaria->id_maquinaria : old('id_maquinaria') }}">
+                        <div class="form-group {{ $errors->has('fecha_adquisicion') ? 'has-error' : '' }}">
+                            <label for="fecha_adquisicion" class="control-label col-xs-4">Fecha Adquisición</label>
+                            <div class="col-xs-8">
+                                <input data-toggle="datepicker" maxlength="10" class="form-control" type="text" name="fecha_adquisicion" id="fecha_adquisicion" value="{{ isset($maquinaria) ? $maquinaria->fecha_adquisicion : old('fecha_adquisicion') }}">
+                                @if($errors->has('fecha_adquisicion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fecha_adquisicion') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('tipo_maquinaria') ? 'has-error' : '' }}">
+                            <label for="tipo_maquinaria" class="control-label col-xs-4">Tipo Maquinaria</label>
+                            <div class="col-xs-8">
+                                <select name="tipo_maquinaria" id="tipo_maquinaria" class="form-control">
+                                    <option value="0">-- SELECCIONE --</option>
+                                    @foreach($tipos_maquinaria as $tipo)
+                                        <option value="{{ $tipo->id_tipo_maquinaria }}">{{ $tipo->nombre }}</option>
+                                    @endforeach
+                                </select>
+                                @if($errors->has('tipo_maquinaria'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tipo_maquinaria') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group {{ $errors->has('nombre') ? 'has-error' : '' }}">
                             <label for="nombre" class="control-label col-xs-4">Nombre</label>
                             <div class="col-xs-8">
-                                <input type="text" class="form-control" id="nombre" name="nombre" />
+                                <input maxlength="200" type="text" class="form-control" id="nombre" name="nombre" value="{{ isset($maquinaria) ? $maquinaria->nombre : old('nombre') }}" />
                                 @if($errors->has('nombre'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('nombre') }}</strong>
@@ -43,10 +70,43 @@
                         <div class="form-group {{ $errors->has('marca') ? 'has-error' : '' }}">
                             <label for="marca" class="control-label col-xs-4">Marca</label>
                             <div class="col-xs-8">
-                                <input class="form-control" type="text" name="marca" id="marca" value="{{ isset($maquinaria) ? $maquinaria->marca : old('marca') }}">
+                                <input maxlength="50" class="form-control" type="text" name="marca" id="marca" value="{{ isset($maquinaria) ? $maquinaria->marca : old('marca') }}">
                                 @if($errors->has('marca'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('marca') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('modelo') ? 'has-error' : '' }}">
+                            <label for="modelo" class="control-label col-xs-4">Modelo</label>
+                            <div class="col-xs-8">
+                                <input maxlength="20" class="form-control" type="text" name="modelo" id="modelo" value="{{ isset($maquinaria) ? $maquinaria->modelo : old('modelo') }}">
+                                @if($errors->has('modelo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('modelo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('serie_chasis') ? 'has-error' : '' }}">
+                            <label for="serie_chasis" class="control-label col-xs-4">Serie Chasis</label>
+                            <div class="col-xs-8">
+                                <input maxlength="20" class="form-control" type="text" name="serie_chasis" id="serie_chasis" value="{{ isset($maquinaria) ? $maquinaria->serie_chasis : old('serie_chasis') }}">
+                                @if($errors->has('serie_chasis'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('serie_chasis') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('serie_motor') ? 'has-error' : '' }}">
+                            <label for="serie_motor" class="control-label col-xs-4">Serie Motor</label>
+                            <div class="col-xs-8">
+                                <input maxlength="20" class="form-control" type="text" name="serie_motor" id="serie_motor" value="{{ isset($maquinaria) ? $maquinaria->serie_motor : old('serie_motor') }}">
+                                @if($errors->has('serie_motor'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('serie_motor') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -61,4 +121,24 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function (e) {
+            $('#tipo_maquinaria').on('change', function (e) {
+                if(parseInt($(this).val())>0){
+                    $.ajax({
+                        url: '{{ route('backmaquinaria.getnombre') }}',
+                        data: {
+                            id: $(this).val()
+                        },
+                        success: function (response) {
+                            $('#nombre').val(response.nombre);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

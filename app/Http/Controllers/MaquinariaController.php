@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,26 +15,77 @@ class MaquinariaController extends Controller
 
     public function index(){
         $maquinarias = DB::table('maquinaria')->where('eliminado', false)->paginate(15);
-        return view('maquinaria.list', ['maquinarias' => $maquinarias]);
+        return view('maquinaria.list', [ 'maquinarias' => $maquinarias, ]);
     }
 
     public function create(){
-        return view('maquinaria.register');
+        $tipos_maquinaria = DB::table('tipo_maquinaria')->get();
+        return view('maquinaria.register', [ 'tipos_maquinaria' => $tipos_maquinaria ]);
     }
 
     public function edit($id){
-        return view('maquinaria.register');
+        $maquinaria = DB::table('maquinaria')
+            ->where('id_maquinaria', $id)
+            ->first();
+        $tipos_maquinaria = DB::table('tipo_maquinaria')->get();
+        return view('maquinaria.register', [ 'maquinaria' => $maquinaria, 'tipos_maquinaria' => $tipos_maquinaria ]);
     }
 
     public function delete($id){
-
+        DB::table('maquinaria')->where('id_maquinaria', $id)
+            ->update([
+                'eliminado' => true
+            ]);
+        return redirect('maquinarias')->with('deleted', 'Se ha eliminado correctamente el registro.');
     }
 
     public function store(Request $request){
-
+        $this->validate($request, [
+           'nombre' =>  'required|max:200',
+           'anio' =>  'required|numeric',
+           'marca' =>  'required|max:50',
+           'modelo' =>  'required|max:20',
+           'serie_chasis' =>  'required|max:20',
+           'serie_motor' =>  'required|max:20',
+           'fecha_adquisicion' =>  'required|date',
+        ]);
+        if (((int) $request['id_maquinaria']) == 0){
+            $id = DB::table('maquinaria')->insertGetId([
+                'nombre' => $request['nombre'],
+                'id_tipo_maquinaria' => $request['tipo_maquinaria'],
+                'anio_fabricacion' => $request['anio'],
+                'marca' => $request['marca'],
+                'modelo' => $request['modelo'],
+                'serie_chasis' => $request['serie_chasis'],
+                'serie_motor' => $request['serie_motor'],
+                'serie_motor' => $request['serie_motor'],
+                'fecha_adquisicion' => $request['fecha_adquisicion'],
+                'eliminado' => false,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ]);
+            return redirect('maquinarias')->with('inserted', 'Se ha insertado correctamente el registro.');
+        }else{
+            DB::table('maquinaria')->where('id_maquinaria', $request['id_maquinaria'])
+                ->update([
+                    'id_tipo_maquinaria' => $request['tipo_maquinaria'],
+                    'nombre' => $request['nombre'],
+                    'anio_fabricacion' => $request['anio'],
+                    'marca' => $request['marca'],
+                    'modelo' => $request['modelo'],
+                    'serie_chasis' => $request['serie_chasis'],
+                    'serie_motor' => $request['serie_motor'],
+                    'fecha_adquisicion' => $request['fecha_adquisicion'],
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ]);
+            return redirect('maquinarias')->with('updated', 'Se ha actualizado correctamente el registro.');
+        }
     }
 
     public function search(Request $request){
-
+        $maquinarias = DB::table('maquinaria')->where([
+            [ 'eliminado', '=', false ],
+            [ $request['filter'], 'like', '%'.$request['q'].'%' ]
+        ])->paginate(15);
+        return view('maquinaria.list', ['maquinarias' => $maquinarias]);
     }
 }

@@ -9,10 +9,22 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shorcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="shorcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
     <!-- Styles -->
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .input-group, .col-xs-12 > .btn-group {
+            margin-bottom: 15px;
+        }
+        .has-error .select2-container .select2-selection--single{
+            border: 1px solid #a94442;
+        }
+        .radio-inline>label{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -66,8 +78,11 @@
                                     <i class="glyphicon glyphicon-barcode"></i> Registros <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><i class="glyphicon glyphicon-list"></i> Lista de registros</a></li>
-                                    <li><a href="#"><i class="glyphicon glyphicon-plus"></i> Nuevo registro mantenimiento</a></li>
+                                    <li><a href="{{ route('clientes.create') }}"><i class="glyphicon glyphicon-briefcase"></i> Nuevo Cliente</a></li>
+                                    <li><a href="{{ route('clientes.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> Lista de Clientes</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ route('registros.create') }}"><i class="glyphicon glyphicon-plus"></i> Nuevo registro </a></li>
+                                    <li><a href="{{ route('registros') }}"><i class="glyphicon glyphicon-list"></i> Lista de Registros</a></li>
                                 </ul>
                             </li>
                         @endif
@@ -107,6 +122,7 @@
 
         <div style="padding-top: 60px">
             @yield('content')
+            <div class="container" id="error-div"></div>
         </div>
     </div>
 
@@ -114,6 +130,10 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/bs-dialog.min.js') }}"></script>
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.es.min.js') }}"></script>
+    <script src="{{ asset('plugins/validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/validate/messages_es_PE.js') }}"></script>
     <script src="{{ asset('js/functions.js') }}"></script>
     @yield('scripts')
 </body>

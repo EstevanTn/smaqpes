@@ -18,7 +18,6 @@ class CreateMaterialTable extends Migration
             $table->integer('id_tipo_material');
             $table->string('nombre',70);
             $table->string('descripcion', 250)->nullable();
-            $table->string('codigo_proveedor', 20)->nullable();
             $table->string('codigo_interno', 20)->nullable();
             $table->char('estado', 1);
             $table->boolean('eliminado')->default(false);
