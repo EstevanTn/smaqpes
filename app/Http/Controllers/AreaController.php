@@ -61,6 +61,7 @@ class AreaController extends Controller
                'descripcion' => $request['descripcion'],
                'estado' => $request['estado'],
                'id_area_padre' => $request['id_area_padre'],
+                'created_at' => getCurrentDate()
             ]);
             return redirect('areas')->with('inserted', 'Se ha insertado correctamente un registro ('.$id.').');
         }else{
@@ -69,6 +70,7 @@ class AreaController extends Controller
                 'descripcion' => $request['descripcion'],
                 'estado' => $request['estado'],
                 'id_area_padre' => $request['id_area_padre'],
+                'updated_at' => getCurrentDate()
             ]);
             return redirect('areas')->with('updated', 'Se ha actualizado correctamente el registro.');
         }

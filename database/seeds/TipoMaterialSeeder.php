@@ -14,17 +14,17 @@ class TipoMaterialSeeder extends Seeder
         \Illuminate\Support\Facades\DB::table('tipo_material')
             ->insert([
                 'nombre' => 'FILTROS',
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate(),
             ]);
         \Illuminate\Support\Facades\DB::table('tipo_material')
             ->insert([
                 'nombre' => 'ACEITES',
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate(),
             ]);
         \Illuminate\Support\Facades\DB::table('tipo_material')
             ->insert([
                 'nombre' => 'REPUESTOS',
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate(),
             ]);
     }
 }

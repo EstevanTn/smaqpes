@@ -75,7 +75,12 @@ Route::get('/registros/edit/{id}', 'RegistrosController@edit')->name('registros.
 Route::get('/registros/delete/{id}', 'RegistrosController@delete')->name('registros.delete');
 Route::post('/registros', 'RegistrosController@store')->name('registros.store');
 
+Route::get('/clientes', 'ClienteController@index')->name('clientes');
+Route::get('/clientes/create', 'ClienteController@create')->name('clientes.create');
+Route::get('/clientes/edit/{id}', 'ClienteController@edit')->name('clientes.edit');
+Route::get('/clientes/delete/{id}', 'ClienteController@delete')->name('clientes.delete');
 Route::get('/clientes/search', 'ClienteController@index');
-Route::resource('/clientes', 'ClienteController');
+Route::post('/clientes/update', 'ClienteController@update')->name('clientes.update');
+Route::post('/clientes', 'ClienteController@store')->name('clientes.store');
 Route::post('/clientes/search', 'ClienteController@search')->name('clientes.search');
 

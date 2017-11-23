@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="shorcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="shorcut icon" type="image/x-icon" href="{{ asset('img/logo-cavenago.jpg') }}">
     <!-- Styles -->
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
@@ -24,7 +24,16 @@
         .radio-inline>label{
             cursor: pointer;
         }
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+            margin-top: -15px;
+        }
+        .no-padding{
+            padding: 0px;
+        }
     </style>
+    @yield('headStyles')
 </head>
 <body>
     <div id="app">
@@ -42,7 +51,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img src="{{ asset('img/logo-cavenago.jpg') }}"/>
                     </a>
                 </div>
 
@@ -79,7 +88,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ route('clientes.create') }}"><i class="glyphicon glyphicon-briefcase"></i> Nuevo Cliente</a></li>
-                                    <li><a href="{{ route('clientes.index') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> Lista de Clientes</a></li>
+                                    <li><a href="{{ route('clientes') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> Lista de Clientes</a></li>
                                     <li class="divider"></li>
                                     <li><a href="{{ route('registros.create') }}"><i class="glyphicon glyphicon-plus"></i> Nuevo registro </a></li>
                                     <li><a href="{{ route('registros') }}"><i class="glyphicon glyphicon-list"></i> Lista de Registros</a></li>

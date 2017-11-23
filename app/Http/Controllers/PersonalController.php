@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class PersonalController extends Controller
@@ -75,7 +73,7 @@ class PersonalController extends Controller
                     'direccion'   =>  $request['direccion'],
                     'fecha_nacimiento'   =>  $request['fecha_nacimiento'],
                     'direccion'   =>  $request['direccion'],
-                    'created_at'  => Carbon::now()->toDateTimeString()
+                    'created_at'  => getCurrentDate()
                 ]);
 
             }else{
@@ -90,7 +88,7 @@ class PersonalController extends Controller
                 'estado' => 'A',
                 'eliminado' => false,
                 'sueldo_base' => $request['sueldo'],
-                'created_at' => Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate()
             ]);
             return redirect('personal')->with('inserted', 'Se ha insertado correctamente un registro.');
         }else{
@@ -120,7 +118,7 @@ class PersonalController extends Controller
                 'email' => $request['email'],
                 'fecha_nacimiento' => $request['fecha_nacimiento'],
                 'direccion' => $request['direccion'],
-                'updated_at' => Carbon::now()->toDateTimeString()
+                'updated_at' => getCurrentDate()
             ]);
 
             DB::table('personal')->where('id_personal', $request['id_personal'])->update([
@@ -130,7 +128,7 @@ class PersonalController extends Controller
                 'sueldo_base' => $request['sueldo'],
                 'estado' => $request['estado'],
                 'cargo' => $request['cargo'],
-                'updated_at' => Carbon::now()->toDateTimeString()
+                'updated_at' => getCurrentDate()
             ]);
             return redirect('personal')->with('updated', 'Se ha actualizado correctamente el registro.');
         }

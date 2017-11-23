@@ -15,12 +15,12 @@ class TipoRegistroSeeder extends Seeder
             [
                 'nombre' => 'MANTENIMIENTO PREVENTIVO',
                 'estado' => true,
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate(),
             ],
             [
                 'nombre' => 'MANTENIMIENTO CORRECTIVO',
                 'estado' => true,
-                'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate(),
             ]
         ]);
     }

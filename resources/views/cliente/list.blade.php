@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-6">
                                     <div class="input-group">
-                                        <input required type="text" class="form-control" name="q" id="q">
+                                        <input type="text" class="form-control" name="q" id="q">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                                         </span>
@@ -84,7 +84,7 @@
                                 <td>{{ sprintf('%s %s', $cliente->nombres, $cliente->apellidos) }}</td>
                                 <td class="text-center">
                                     <a title="Editar" href="{{ route('clientes.edit', $cliente->id_cliente) }}" class="btn btn-link"><i class="glyphicon glyphicon-edit"></i></a>
-                                    <form style="display: inline-block" id="frmDelete" method="post" action="{{ route('clientes.destroy', $cliente->id_cliente) }}">
+                                    <form style="display: inline-block" id="frmDelete" method="post" action="{{ route('clientes.delete', $cliente->id_cliente) }}">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" id="_method" value="DELETE" />
                                         <button onclick="verificate_delete(event)" class="btn btn-link"><i class="glyphicon glyphicon-remove"></i></button>

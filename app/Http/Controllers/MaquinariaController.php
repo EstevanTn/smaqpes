@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,7 +60,7 @@ class MaquinariaController extends Controller
                 'serie_motor' => $request['serie_motor'],
                 'fecha_adquisicion' => $request['fecha_adquisicion'],
                 'eliminado' => false,
-                'created_at' => Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate()
             ]);
             return redirect('maquinarias')->with('inserted', 'Se ha insertado correctamente el registro.');
         }else{
@@ -75,7 +74,7 @@ class MaquinariaController extends Controller
                     'serie_chasis' => $request['serie_chasis'],
                     'serie_motor' => $request['serie_motor'],
                     'fecha_adquisicion' => $request['fecha_adquisicion'],
-                    'updated_at' => Carbon::now()->toDateTimeString()
+                    'updated_at' => getCurrentDate()
                 ]);
             return redirect('maquinarias')->with('updated', 'Se ha actualizado correctamente el registro.');
         }

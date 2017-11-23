@@ -16,26 +16,26 @@ class DefaultDataSeeder extends Seeder
             'nombre' => 'DOCUMENTO NACIONAL DE IDENTIDAD',
             'siglas' => 'DNI',
             'valor' => '8',
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate(),
         ]);
         $ruc_id = DB::table('tipo_documento')->insertGetId([
             'nombre' => 'REGISTRO UNICO DEL CONTRIBUYENTE',
             'siglas' => 'RUC',
             'valor' => '11',
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate(),
         ]);
 
         $rol_administrador = DB::table('rol')->insertGetId([
             'nombre'  => 'ADMINISTRADO',
             'descripcion' => 'ADMINISTRADOR DEL SISTEMA',
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate(),
         ]);
         $area_id =DB::table('area')->insertGetId([
             'nombre' => 'DIVISION RENTAL',
             'descripcion' => 'AREA DE DIVISIÓN RENTAL',
             'estado' => true,
             'eliminado' => false,
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate()
         ]);
 
         $persona_id = DB::table('persona')->insertGetId([
@@ -43,7 +43,7 @@ class DefaultDataSeeder extends Seeder
             'numero_documento' => '32942027',
             'nombres' => 'ROGER IVAN',
             'apellidos' => 'BEDON BERNUY',
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate()
         ]);
         $personal_id = DB::table('personal')->insertGetId([
             'id_persona' => $persona_id,
@@ -52,7 +52,7 @@ class DefaultDataSeeder extends Seeder
             'sueldo_base' => 1535,
             'estado' => 'A',
             'eliminado' => false,
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate()
         ]);
         DB::table('usuario')->insert([
             'name' => 'ROGER IVAN',
@@ -62,7 +62,7 @@ class DefaultDataSeeder extends Seeder
             'id_personal' => $personal_id,
             'estado' => 'ACTIVO',
             'eliminado' => false,
-            'created_at' => \Carbon\Carbon::now()->toDateTimeString()
+            'created_at' => getCurrentDate()
         ]);
     }
 }

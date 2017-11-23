@@ -65,7 +65,8 @@ class UsuarioController extends Controller
                 'email' => $request['email'],
                 'password' => bcrypt($request['password']),
                 'estado' => $request['estado'],
-                'eliminado' => false
+                'eliminado' => false,
+                'created_at' => getCurrentDate()
             ]);
             return redirect('usuarios')->with('inserted', 'Se ha insertado el registro ('.$id.') correctamente.');
         }else{
@@ -81,6 +82,7 @@ class UsuarioController extends Controller
                 'name' => $request['name'],
                 'email' => $request['email'],
                 'estado' => $request['estado'],
+                'updated_at' => getCurrentDate()
             ]);
             return redirect('usuarios')->with('updated', 'Se ha actulizado el registro correctamente.');
         }

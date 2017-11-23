@@ -24,7 +24,18 @@ class ClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo_documento' => 'numeric|min:1'
+            'ruc' => 'required|max:11',
+            'razon_social' => 'required|max:150',
+            'nombre_comercial' => 'nullable|max:150',
+            'direccion_cliente' => 'required|max:250',
+            'tipo_documento' => 'numeric|min:1',
+            'numero_documento' => 'required|digits_between:8,20',
+            'nombres' => 'required|max:70',
+            'apellidos' => 'required|max:100',
+            'direccion' => 'required|max:150',
+            'email' => 'nullable|email|max:100',
+            'fecha_nacimiento' => 'nullable|date',
+
         ];
     }
 }

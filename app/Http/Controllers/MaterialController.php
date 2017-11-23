@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -58,7 +57,7 @@ class MaterialController extends Controller
                 'descripcion' => $request['descripcion'],
                 'codigo_interno' => $request['codigo_interno'],
                 'estado' => $request['estado'],
-                'created_at' => Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate()
             ]);
             return redirect('materiales')->with('inserted', 'Se ha insertado correctamente el registro.');
         }else{
@@ -70,7 +69,7 @@ class MaterialController extends Controller
                     'descripcion' => $request['descripcion'],
                     'codigo_interno' => $request['codigo_interno'],
                     'estado' => $request['estado'],
-                    'updated_at' => Carbon::now()->toDateTimeString()
+                    'updated_at' => getCurrentDate()
                 ]);
             return redirect('materiales')->with('updated', 'Se ha actualizado correctamente el registro.');
         }

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Result;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +13,7 @@ class BackendMaterialController extends Controller
                 'id_material' => $request['id_material'],
                 'codigo' => $request['codigo_proveedor'],
                 'nombre' => $request['nombre_proveedor'],
-                'created_at' => Carbon::now()->toDateTimeString()
+                'created_at' => getCurrentDate()
             ]);
             $url = route('materiales.edit', [ 'id' =>  $request['id_material'] ]);
             return redirect($url)->with('inserted', 'Se ha agregado el proveedor a registro.');
@@ -25,7 +23,7 @@ class BackendMaterialController extends Controller
                     'id_material' => $request['id_material'],
                     'codigo' => $request['codigo_proveedor'],
                     'nombre' => $request['nombre_proveedor'],
-                    'updated_at' => Carbon::now()->toDateTimeString()
+                    'updated_at' => getCurrentDate()
                 ]);
             $url = route('materiales.edit', [ 'id' =>  $request['id_material'] ]);
             if ($result){
