@@ -13,3 +13,7 @@ function getCurrentDateString(){
 function getCurrentDate(){
     return \Illuminate\Support\Facades\DB::raw('(SELECT CURRENT_TIMESTAMP)');
 }
+
+function castDateTime($datetimeString){
+    return \Illuminate\Support\Facades\DB::raw('(SELECT CAST(\''.$datetimeString.'\' as DATETIME))');
+}

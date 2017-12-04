@@ -58,8 +58,6 @@ Route::post('/maquinarias', 'MaquinariaController@store')->name('maquinarias.sto
 Route::post('/maquinarias/search', 'MaquinariaController@search')->name('maquinarias.search');
 Route::get('/maquinarias/search', 'MaquinariaController@index');
 
-Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');
-
 Route::get('/materiales', 'MaterialController@index')->name('materiales');
 Route::get('/materiales/create', 'MaterialController@create')->name('materiales.create');
 Route::get('/materiales/edit/{id}', 'MaterialController@edit')->name('materiales.edit');
@@ -67,9 +65,9 @@ Route::get('/materiales/delete/{id}', 'MaterialController@delete')->name('materi
 Route::get('/materiales/search', 'MaterialController@index');
 Route::post('/materiales/search', 'MaterialController@search')->name('materiales.search');
 Route::post('/materiales', 'MaterialController@store')->name('materiales.store');
-Route::post('/materiales/proveedor', 'BackendMaterialController@storeProveedor')->name('materiales.proveedor');
 
 Route::get('/registros', 'RegistrosController@index')->name('registros');
+Route::get('/registros/detalle/{id}', 'RegistrosController@detalle')->name('registros.detalle');
 Route::get('/registros/create', 'RegistrosController@create')->name('registros.create');
 Route::get('/registros/edit/{id}', 'RegistrosController@edit')->name('registros.edit');
 Route::get('/registros/delete/{id}', 'RegistrosController@delete')->name('registros.delete');
@@ -83,4 +81,11 @@ Route::get('/clientes/search', 'ClienteController@index');
 Route::post('/clientes/update', 'ClienteController@update')->name('clientes.update');
 Route::post('/clientes', 'ClienteController@store')->name('clientes.store');
 Route::post('/clientes/search', 'ClienteController@search')->name('clientes.search');
+
+//BackEnd
+Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');
+Route::post('/materiales/proveedor', 'BackendMaterialController@storeProveedor')->name('materiales.proveedor');
+Route::post('/clientes/GetAll', 'BackendClienteController@GetAll')->name('clientes.getAll');
+Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('maquinaria.getAll');
+Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');
 

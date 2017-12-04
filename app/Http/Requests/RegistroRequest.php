@@ -13,7 +13,7 @@ class RegistroRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,28 @@ class RegistroRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo_registro'=> 'numeric|min:1',
+            'id_cliente' => 'numeric|min:1',
+            'nombre_cliente' => 'required',
+            'id_maquinaria' => 'numeric|min:1',
+            'nombre_maquinaria' => 'required',
+            'lugar' => 'nullable|max:350',
+            'lugar_encontrado' => 'nullable',
+            'fecha_emision' => 'nullable|date',
+            'total_horas' => 'required|numeric',
+            'horometro' => 'required',
+            'kilometraje' => 'required',
+            'id_operador' => 'numeric|min:1',
+            'number_operador' => 'required',
+            'id_mecanico' => 'numeric|min:1',
+            'nombre_mecanico' => 'required',
+            'id_responsable' => 'numeric|min:1',
+            'nombre_responsable' => 'required',
+            'observacion' => 'nullable|max:500',
+            'hora_inicio_mantto' => 'nullable',
+            'hora_salida_viaje' => 'nullable',
+            'hora_termino_mantto' => 'nullable',
+            'hora_llegada_viaje' => 'nullable',
         ];
     }
 }

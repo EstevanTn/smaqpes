@@ -17,4 +17,10 @@ class BackendMaquinariaController extends Controller
            'nombre' => sprintf('%s N°%s', $tipo->nombre, $count)
         ]);
     }
+    public function GetAll(){
+        $result = DB::table('maquinaria')->join('tipo_maquinaria', 'maquinaria.id_tipo_maquinaria','=', 'tipo_maquinaria.id_tipo_maquinaria')
+            ->select('maquinaria.*', 'tipo_maquinaria.nombre as nombre_tipo')
+            ->where('maquinaria.eliminado', false)->get();
+        return response()->json(['data'=>$result]);
+    }
 }

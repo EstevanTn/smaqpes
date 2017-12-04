@@ -15,7 +15,10 @@ class PersonalController extends Controller
     public function index(){
         $personal = $this->getAll()
             ->select('persona.*', 'personal.id_area', 'personal.cargo','personal.id_personal', 'personal.sueldo_base',
-                'area.nombre as area', 'tipo_documento.siglas')
+                'area.nombre as area', 'personal.estado', 'personal.eliminado', 'tipo_documento.siglas')
+            ->where([
+                'personal.eliminado' => false,
+            ])
             ->paginate(15);
         return view('personal.list', [ 'personal' => $personal, ]);
     }
