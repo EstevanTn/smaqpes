@@ -115,7 +115,13 @@
                             <label for="imagen" class="control-label col-xs-4">Imagen</label>
                             <div class="col-xs-8">
                                 <div class="input-group">
-                                    <input maxlength="300" class="form-control" type="text" name="imagen" id="imagen" value="{{ isset($maquinaria) ? $maquinaria->imagen : old('imagen') }}">
+                                    <input list="listimagen" maxlength="300" class="form-control" type="text" name="imagen" id="imagen" value="{{ isset($maquinaria) ? $maquinaria->imagen : old('imagen') }}">
+                                    <datalist id="listimagen">
+                                        <?php $list = listar_archivos('./photos/') ?>
+                                        @foreach($list as $file)
+                                            <option value="{{ asset('photos/'.$file) }}" />
+                                        @endforeach
+                                    </datalist>
                                     <span class="input-group-btn">
                                         <button id="btn-imagen" type="button" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i></button>
                                     </span>

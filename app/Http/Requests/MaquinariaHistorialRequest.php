@@ -24,7 +24,11 @@ class MaquinariaHistorialRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'id_maquinaria' => 'numeric',
+            'fecha' => 'required|date',
+            'hinicio' => 'nullable|date',
+            'htermino' => 'nullable|date',
+            'horometro' => 'required|numeric'
         ];
     }
 }

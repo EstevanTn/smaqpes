@@ -47,6 +47,7 @@ class MaquinariaController extends Controller
            'serie_chasis' =>  'required|max:20',
            'serie_motor' =>  'required|max:20',
            'fecha_adquisicion' =>  'required|date',
+            'imagen' => 'nullable|max:300'
         ]);
         if (((int) $request['id_maquinaria']) == 0){
             $id = DB::table('maquinaria')->insertGetId([
@@ -59,6 +60,7 @@ class MaquinariaController extends Controller
                 'serie_motor' => $request['serie_motor'],
                 'serie_motor' => $request['serie_motor'],
                 'fecha_adquisicion' => $request['fecha_adquisicion'],
+                'imagen' => $request['imagen'],
                 'eliminado' => false,
                 'created_at' => getCurrentDate()
             ]);
@@ -73,6 +75,7 @@ class MaquinariaController extends Controller
                     'modelo' => $request['modelo'],
                     'serie_chasis' => $request['serie_chasis'],
                     'serie_motor' => $request['serie_motor'],
+                    'imagen' => $request['imagen'],
                     'fecha_adquisicion' => $request['fecha_adquisicion'],
                     'updated_at' => getCurrentDate()
                 ]);

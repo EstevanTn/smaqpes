@@ -61,9 +61,10 @@ Route::get('/maquinarias/search', 'MaquinariaController@index');
 Route::get('/maquinarias/{id_maquinaria}/historial', 'MaquinariaHistorialController@index')->name('maquinarias.historial');
 Route::get('/maquinarias/{id_maquinaria}/historial/create', 'MaquinariaHistorialController@create')->name('maquinarias.historial.create');
 Route::get('/maquinarias/historial/edit/{id}', 'MaquinariaHistorialController@edit')->name('maquinarias.historial.edit');
-Route::get('/maquinarias/historial/delete/{id}', 'MaquinariaHistorialController@delete')->name('maquinarias.historial.delete');
+Route::get('/maquinarias/{id_maquinaria}/historial/delete/{id}', 'MaquinariaHistorialController@delete')->name('maquinarias.historial.delete');
 Route::get('/maquinarias/{id_maquinaria}/historial/search', 'MaquinariaHistorialController@index');
-Route::post('/maquinarias/historial', 'MaquinariaHistorialController@store')->name('maquinarias.historial.store');
+Route::post('/maquinarias/historial/store', 'MaquinariaHistorialController@store')->name('maquinarias.historial.store');
+Route::post('/maquinarias/historial/update', 'MaquinariaHistorialController@update')->name('maquinarias.historial.update');
 Route::post('/maquinarias/{id_maquinaria}/historial/search', 'MaquinariaHistorialController@search')->name('maquinarias.historial.search');
 
 Route::get('/materiales', 'MaterialController@index')->name('materiales');
