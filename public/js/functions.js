@@ -94,4 +94,5 @@ $(document).ready(function () {
         language: 'es',
         format: 'yyyy-m-d'
     });
+    $('[data-toggle="tooltip"]').tooltip();
 })

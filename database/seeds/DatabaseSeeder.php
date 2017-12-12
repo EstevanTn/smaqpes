@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoMaquinariaSeeder::class);
         $this->call(TipoMaterialSeeder::class);
         $this->call(TipoRegistroSeeder::class);
+        $this->call(PaginasPermisoSeeder::class);
     }
 }

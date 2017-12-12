@@ -58,43 +58,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        @if(!Auth::guest())
-                            <li class="dropdown">
-                                <a href="#" class="dropdown" data-toggle="dropdown" role="button"
-                                   aria-expanded="false">
-                                    <i class="glyphicon glyphicon-star-empty"></i> Sistema <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    </li><li><a href="{{ route('roles') }}"><i class="glyphicon glyphicon-certificate"></i> Roles</a></li>
-                                    <li><a href="{{ route('usuarios') }}"><i class="glyphicon glyphicon-lock"></i> Usuarios</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown" data-toggle="dropdown" role="button"
-                                   aria-expanded="false">
-                                    <i class="glyphicon glyphicon-cog"></i> Mantenimiento <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('areas') }}"><i class="glyphicon glyphicon-list-alt"></i> Áreas</a></li>
-                                    <li><a href="{{ route('personal') }}"><i class="glyphicon glyphicon-user"></i> Personal</a>
-                                    <li><a href="{{ route('maquinarias') }}"><i class="glyphicon glyphicon-pushpin"></i> Maquinaria</a></li>
-                                    <li><a href="{{ route('materiales') }}"><i class="glyphicon glyphicon-th-list"></i> Materiales</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" role="button" data-toggle="dropdown" aria-expanded="false"
-                                   class="dropdown">
-                                    <i class="glyphicon glyphicon-barcode"></i> Registros <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('clientes.create') }}"><i class="glyphicon glyphicon-briefcase"></i> Nuevo Cliente</a></li>
-                                    <li><a href="{{ route('clientes') }}"><i class="glyphicon glyphicon-menu-hamburger"></i> Lista de Clientes</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="{{ route('registros.create') }}"><i class="glyphicon glyphicon-plus"></i> Nuevo registro </a></li>
-                                    <li><a href="{{ route('registros') }}"><i class="glyphicon glyphicon-list"></i> Lista de Registros</a></li>
-                                </ul>
-                            </li>
-                        @endif
+                        <?=getLinksHTML()?>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

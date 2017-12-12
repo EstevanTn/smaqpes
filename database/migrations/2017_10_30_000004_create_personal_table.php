@@ -15,8 +15,8 @@ class CreatePersonalTable extends Migration
     {
         Schema::create('personal', function (Blueprint $table) {
             $table->increments('id_personal');
-            $table->integer('id_persona');
-            $table->integer('id_area');
+            $table->integer('id_persona')->unsigned();
+            $table->integer('id_area')->unsigned();
             $table->string('cargo', 100);
             $table->date('fecha_contrato')->nullable();
             $table->date('fecha_ingreso')->nullable();
@@ -24,8 +24,9 @@ class CreatePersonalTable extends Migration
             $table->boolean('eliminado')->default(false);
             $table->char('estado',1)->default('A');
             $table->timestamps();
-            Schema::disableForeignKeyConstraints();
+            //Schema::disableForeignKeyConstraints();
             $table->foreign('id_persona')->references('id_persona')->on('persona');
+            $table->foreign('id_area')->references('id_area')->on('area');
         });
     }
 

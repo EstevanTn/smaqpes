@@ -15,8 +15,8 @@ class CreateDetalleHorasMantenimientoTable extends Migration
     {
         Schema::create('detalle_horas_mantenimiento', function (Blueprint $table) {
             $table->increments('id_detalle_horas_mantenimiento');
-            $table->integer('id_horas_mantenimiento');
-            $table->integer('id_material');
+            $table->integer('id_horas_mantenimiento')->unsigned();
+            $table->integer('id_material')->unsigned();
             $table->string('tipo_material', 20);
             $table->string('descripcion', 250);
             $table->decimal('cantidad', 6, 2)->nullable();

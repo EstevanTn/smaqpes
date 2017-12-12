@@ -17,7 +17,9 @@ class CreateMaterialProveedor extends Migration
             $table->increments('id_material_proveedor');
             $table->integer('id_material');
             $table->string('codigo', 20);
-            $table->string('nombre', 100)->nullable();
+            $table->string('nombre', 50)->nullable();
+            $table->string('descripcion', 250)->nullable();
+            $table->decimal('precio');
             $table->timestamps();
             $table->foreign('id_material')->references('id_material')->on('material');
         });

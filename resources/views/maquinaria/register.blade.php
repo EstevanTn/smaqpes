@@ -111,6 +111,17 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="imagen" class="control-label col-xs-4">Imagen</label>
+                            <div class="col-xs-8">
+                                <div class="input-group">
+                                    <input maxlength="300" class="form-control" type="text" name="imagen" id="imagen" value="{{ isset($maquinaria) ? $maquinaria->imagen : old('imagen') }}">
+                                    <span class="input-group-btn">
+                                        <button id="btn-imagen" type="button" class="btn btn-default"><i class="glyphicon glyphicon-ok"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="panel-footer">
@@ -139,6 +150,16 @@
                     });
                 }
             });
+            $('#btn-imagen').on('click', function () {
+                var src = $('#imagen').val();
+                if(src){
+                    BootstrapDialog.alert({
+                        title: '<i class="glyphicon glyphicon-eye-open"></i> Vista previa',
+                        message: '<div class="text-center"><img class="img-responsive img-thumbnail" src="'+src+'" alt="La imagen no se ha encontrado" /></div>',
+
+                    });
+                }
+            })
         });
     </script>
 @endsection

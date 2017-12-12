@@ -9,9 +9,9 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     @if(!isset($registro))
-                        <i class="glyphicon glyphicon-plus"></i> Nuevo registro
+                        <i class="glyphicon glyphicon-plus"></i> Nuevo servicio
                     @else
-                        <i class="glyphicon glyphicon-edit"></i> Editar registro
+                        <i class="glyphicon glyphicon-edit"></i> Editar servicio
                     @endif
                 </h4>
             </div>
@@ -192,21 +192,29 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="form-group">
-                                <label for="estado_maquinaria" class="control-label col-xs-4">¿Como se encontró la maquinaria?</label>
+                                <label for="estado_maquinaria" class="control-label col-xs-12 col-sm-3">¿Como se encontró la maquinaria?</label>
                                 <div class="col-xs-4 col-sm-3">
                                     <div class="radio-inline">
-                                        <label>
+                                        <span>
                                             <input type="radio" value="O" name="estado_maquinaria" id="rbtnoperativo">
                                             Operativa
-                                        </label>  
+                                        </span>
                                     </div>  
                                 </div>
                                 <div class="col-xs-4 col-sm-3">
                                     <div class="radio-inline">
-                                        <label>
+                                        <span>
                                             <input checked="checked" type="radio" value="I" name="estado_maquinaria" id="rbtnoperativo">
                                             Inoperativa
-                                        </label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-sm-3">
+                                    <div class="radio-inline">
+                                        <span>
+                                            <input type="radio" value="T" name="estado_maquinaria" id="rbtnterceros">
+                                            Proceso de reparación de terceros
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -234,11 +242,11 @@
                             <div class="form-group {{ $errors->has('id_operador')||$errors->has('nombre_operador')?"has-error":"" }}">
                                 <label for="id_operador" class="control-label col-xs-4 col-sm-2">Operador</label>
                                 <div class="col-xs-3 col-sm-2">
-                                    <input required name="id_operador" id="id_operador" readonly type="text" class="form-control" value="{{ old('id_operador', isset($registro) ? $registro->id_operador : "") }}">
+                                    <input name="id_operador" id="id_operador" readonly type="text" class="form-control" value="{{ old('id_operador', isset($registro) ? $registro->id_operador : "") }}">
                                 </div>
                                 <div class="col-xs-5 col-sm-8">
                                     <div class="input-group">
-                                        <input required name="nombre_operador" id="nombre_operador" type="text" class="form-control" value="{{ old('nombre_operador', isset($registro) ? $registro->nombre_operador : "") }}">
+                                        <input name="nombre_operador" id="nombre_operador" type="text" class="form-control" value="{{ old('nombre_operador', isset($registro) ? $registro->nombre_operador : "") }}">
                                         <span class="input-group-btn">
                                             <button onclick="cliente.buttonPersonal(this)" data-role="operador" data-toggle="modal" data-target="#modal-personal" class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
                                         </span>

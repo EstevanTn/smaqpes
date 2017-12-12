@@ -26,8 +26,13 @@ class DefaultDataSeeder extends Seeder
         ]);
 
         $rol_administrador = DB::table('rol')->insertGetId([
-            'nombre'  => 'ADMINISTRADO',
+            'nombre'  => 'ADMINISTRADOR',
             'descripcion' => 'ADMINISTRADOR DEL SISTEMA',
+            'created_at' => getCurrentDate(),
+        ]);
+        $rol_usuario = DB::table('rol')->insertGetId([
+            'nombre'  => 'TRABAJADOR',
+            'descripcion' => 'TRABAJADOR DEL GRUPO CAVENAGO',
             'created_at' => getCurrentDate(),
         ]);
         $area_id =DB::table('area')->insertGetId([
@@ -64,5 +69,7 @@ class DefaultDataSeeder extends Seeder
             'eliminado' => false,
             'created_at' => getCurrentDate()
         ]);
+
+
     }
 }

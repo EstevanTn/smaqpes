@@ -57,12 +57,12 @@
                     <thead>
                     <tr role="row">
                         <th style="width: 25%" class="text-center" rowspan="2">Nombre</th>
-                        <th style="width: 15%" class="text-center" rowspan="2">Marca</th>
+                        <th style="width: 12%" class="text-center" rowspan="2">Marca</th>
                         <th style="width: 15%" class="text-center" rowspan="2">Modelo</th>
                         <th style="width: 20%"class="text-center" rowspan="1" colspan="2">Serie</th>
                         <th style="width: 5%" class="text-center" rowspan="2">Año Fab.</th>
                         <th  style="width: 10%" class="text-center" rowspan="2">Fecha Adq.</th>
-                        <th rowspan="2" style="width: 100%">Acciones</th>
+                        <th rowspan="2" style="width: 13%">Acciones</th>
                     </tr>
                     <tr role="row">
                         <th class="text-center" colspan="1">Chasis</th>
@@ -81,8 +81,11 @@
                                 <td class="text-center">{{ $maquinaria->anio_fabricacion }}</td>
                                 <td class="text-center">{{ $maquinaria->fecha_adquisicion }}</td>
                                 <td>
-                                    <a href="{{ route('maquinarias.edit', [ 'id' => $maquinaria->id_maquinaria ]) }}" class="btn btn-link"><i class="glyphicon glyphicon-edit"></i></a>
-                                    <a href="javascript: delete_reg('{{ route('maquinarias.delete', [ 'id' => $maquinaria->id_maquinaria ]) }}')" class="btn btn-link"><i class="glyphicon glyphicon-remove"></i></a>
+                                    <div class="btn-group">
+                                        <a data-toggle="tooltip" title="Editar" href="{{ route('maquinarias.edit', [ 'id' => $maquinaria->id_maquinaria ]) }}" class="btn btn-link"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a data-toggle="tooltip" title="Eliminar" href="javascript: delete_reg('{{ route('maquinarias.delete', [ 'id' => $maquinaria->id_maquinaria ]) }}')" class="btn btn-link"><i class="glyphicon glyphicon-remove"></i></a>
+                                        <a data-toggle="tooltip" title="Ver hostorial de trabajo" href="{{ route('maquinarias.historial', ['id_maquinaria'=>$maquinaria->id_maquinaria]) }}" class="btn btn-link"><i class="glyphicon glyphicon-list"></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

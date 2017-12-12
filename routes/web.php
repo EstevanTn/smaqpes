@@ -58,6 +58,14 @@ Route::post('/maquinarias', 'MaquinariaController@store')->name('maquinarias.sto
 Route::post('/maquinarias/search', 'MaquinariaController@search')->name('maquinarias.search');
 Route::get('/maquinarias/search', 'MaquinariaController@index');
 
+Route::get('/maquinarias/{id_maquinaria}/historial', 'MaquinariaHistorialController@index')->name('maquinarias.historial');
+Route::get('/maquinarias/{id_maquinaria}/historial/create', 'MaquinariaHistorialController@create')->name('maquinarias.historial.create');
+Route::get('/maquinarias/historial/edit/{id}', 'MaquinariaHistorialController@edit')->name('maquinarias.historial.edit');
+Route::get('/maquinarias/historial/delete/{id}', 'MaquinariaHistorialController@delete')->name('maquinarias.historial.delete');
+Route::get('/maquinarias/{id_maquinaria}/historial/search', 'MaquinariaHistorialController@index');
+Route::post('/maquinarias/historial', 'MaquinariaHistorialController@store')->name('maquinarias.historial.store');
+Route::post('/maquinarias/{id_maquinaria}/historial/search', 'MaquinariaHistorialController@search')->name('maquinarias.historial.search');
+
 Route::get('/materiales', 'MaterialController@index')->name('materiales');
 Route::get('/materiales/create', 'MaterialController@create')->name('materiales.create');
 Route::get('/materiales/edit/{id}', 'MaterialController@edit')->name('materiales.edit');
@@ -81,6 +89,14 @@ Route::get('/clientes/search', 'ClienteController@index');
 Route::post('/clientes/update', 'ClienteController@update')->name('clientes.update');
 Route::post('/clientes', 'ClienteController@store')->name('clientes.store');
 Route::post('/clientes/search', 'ClienteController@search')->name('clientes.search');
+
+Route::get('/paginas_rol', 'PaginasPermisoController@index')->name('paginas_rol');
+Route::get('/paginas_rol/create', 'PaginasPermisoController@create')->name('paginas_rol.create');
+Route::get('/paginas_rol/edit/{id}', 'PaginasPermisoController@edit')->name('paginas_rol.edit');
+Route::get('/paginas_rol/search', 'PaginasPermisoController@index');
+Route::post('/paginas_rol/search', 'PaginasPermisoController@search')->name('paginas_rol.search');
+Route::post('/paginas_rol/store', 'PaginasPermisoController@store')->name('paginas_rol.store');
+Route::post('/paginas_rol/update', 'PaginasPermisoController@update')->name('paginas_rol.update');
 
 //BackEnd
 Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');

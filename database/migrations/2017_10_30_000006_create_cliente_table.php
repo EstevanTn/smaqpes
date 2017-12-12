@@ -15,7 +15,7 @@ class CreateClienteTable extends Migration
     {
         Schema::create('cliente', function (Blueprint $table) {
             $table->increments('id_cliente');
-            $table->integer('id_persona');
+            $table->integer('id_persona')->unsigned();
             $table->string('ruc', 11);
             $table->string('razon_social', 150);
             $table->string('nombre_comercial', 150)->nullable();
@@ -23,7 +23,7 @@ class CreateClienteTable extends Migration
             $table->char('estado', 1)->default('A');
             $table->boolean('eliminado')->default(false);
             $table->timestamps();
-            Schema::disableForeignKeyConstraints();
+            //Schema::disableForeignKeyConstraints();
             $table->foreign('id_persona')->references('id_persona')->on('persona');
         });
     }

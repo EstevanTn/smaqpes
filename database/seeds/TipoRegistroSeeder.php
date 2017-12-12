@@ -21,6 +21,11 @@ class TipoRegistroSeeder extends Seeder
                 'nombre' => 'MANTENIMIENTO CORRECTIVO',
                 'estado' => true,
                 'created_at' => getCurrentDate(),
+            ],
+            [
+                'nombre' => 'MANTENIMIENTO PREDICTIVO',
+                'estado' => true,
+                'created_at' => getCurrentDate()
             ]
         ]);
     }
