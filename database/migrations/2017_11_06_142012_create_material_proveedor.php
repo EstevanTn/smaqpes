@@ -19,7 +19,7 @@ class CreateMaterialProveedor extends Migration
             $table->string('codigo', 20);
             $table->string('nombre', 50)->nullable();
             $table->string('descripcion', 250)->nullable();
-            $table->decimal('precio');
+            $table->decimal('precio', 10, 2);
             $table->timestamps();
             $table->foreign('id_material')->references('id_material')->on('material');
         });

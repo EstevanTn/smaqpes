@@ -106,3 +106,4 @@ Route::post('/clientes/GetAll', 'BackendClienteController@GetAll')->name('client
 Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('maquinaria.getAll');
 Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');
 
+Route::post('/registros/getHorasMantenimiento', 'BackendRegistrosController@getHorasMantenimiento')->name('registros.getHorasMantenimiento');

@@ -105,9 +105,38 @@ var cliente = {
             $('#modal-maquinaria').modal('hide');
             $('#id_maquinaria').val(selected.id_maquinaria);
             $('#nombre_maquinaria').val(selected.nombre);
+            if(selected.id_tipo_documento!==7){
+                $('#kilometraje').attr('readonly', 'readonly');
+            }else{
+                $('#kilometraje').removeAttr('readonly');
+            }
+            cliente.getHorasMantenimiento(selected.id_maquinaria);
         }else{
             BootstrapDialog.alert('Seleccione una maquinaria!');
         }
+    },
+    getHorasMantenimiento: function (id_maquinaria) {
+        var list = $('#list_horas_mantenimiento');
+        list.empty();
+        $.ajax({
+           url: urlListarHorasMantenimiento,
+            type: 'POST',
+            data: { id_maquinaria: id_maquinaria },
+            success: function (response) {
+                $.each(response.data, function (i, e) {
+                    list.append($('<option>',{
+                        value: this.total_horas,
+                        data: {
+                            id: this.id_horas_matenimiento,
+                        }
+                    }));
+                });
+                $('#total_horas').off('input').on('input', function(e){
+                    var option = $('#list_horas_mantenimiento option:selected');
+                    console.dir(option);
+                });
+            }
+        });
     }
 };
 $(document).ready(function(){

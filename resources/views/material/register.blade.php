@@ -4,6 +4,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             @include('partials.messages')
+            @foreach($errors as $error)
+                {{ var_dump($error) }}
+            @endforeach
         </div>
     </div>
     <div class="row">
@@ -112,10 +115,12 @@
                         document.getElementById('frmProveedor').submit();
                     }
                 },
-                get: function (id, codigo, nombre) {
+                get: function (id, codigo, nombre, descripcion, precio) {
                     $('#id_proveedor').val(id);
                     $('#codigo_proveedor').val(codigo);
                     $('#nombre_proveedor').val(nombre);
+                    $('#descripcion_proveedor').val(descripcion);
+                    $('#precio_proveedor').val(precio);
                     $('#modal-proveedor').modal('show');
                 }
             };

@@ -8,11 +8,21 @@ use Illuminate\Support\Facades\DB;
 class BackendMaterialController extends Controller
 {
     public function storeProveedor(Request $request){
+        $this->validate($request, [
+           'id_material' => 'numeric',
+            'id_proveedor' => 'numeric',
+            'codigo_proveedor' => 'required',
+            'nombre_proveedor' => 'required|max:100',
+            'descripcion_proveedor' => 'nullable|max:250',
+            'precio_proveedor' => 'required|numeric',
+        ]);
         if (((int) $request['id_proveedor']) == 0){
             $id = DB::table('material_proveedor')->insertGetId([
                 'id_material' => $request['id_material'],
                 'codigo' => $request['codigo_proveedor'],
                 'nombre' => $request['nombre_proveedor'],
+                'descripcion' => $request['descripcion_proveedor'],
+                'precio' => $request['precio_proveedor'],
                 'created_at' => getCurrentDate()
             ]);
             $url = route('materiales.edit', [ 'id' =>  $request['id_material'] ]);
@@ -23,6 +33,8 @@ class BackendMaterialController extends Controller
                     'id_material' => $request['id_material'],
                     'codigo' => $request['codigo_proveedor'],
                     'nombre' => $request['nombre_proveedor'],
+                    'descripcion' => $request['descripcion_proveedor'],
+                    'precio' => $request['precio_proveedor'],
                     'updated_at' => getCurrentDate()
                 ]);
             $url = route('materiales.edit', [ 'id' =>  $request['id_material'] ]);

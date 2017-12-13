@@ -47,14 +47,17 @@ function selectOption(name, option) {
     }
 }
 
-function formReset() {
-    $('input[type="hidden"]').each(function () {
-       if($(this).attr('name')!=='_token'){
-           $(this).val(0);
+function formReset(parent) {
+    $('input[type="hidden"]', parent).each(function () {
+       var exclude = $(this).data('exclude');
+       if(!exclude || exclude.trim().toLocaleLowerCase() === 'false'){
+           if($(this).attr('name')!=='_token' && $(this).attr('name')!=='_method'){
+               $(this).val(0);
+           }
        }
     });
-    $('input.form-control, textarea').val('');
-    $('select.form-control').val(0);
+    $('input.form-control, textarea', parent).val('');
+    $('select.form-control', parent).val(0);
 }
 
 $.validator.setDefaults({

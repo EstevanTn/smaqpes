@@ -15,9 +15,11 @@ class CreateHorasMatenimientoTable extends Migration
     {
         Schema::create('horas_mantenimiento', function (Blueprint $table) {
             $table->increments('id_horas_mantenimiento');
+            $table->integer('id_maquinaria')->unsigned();
             $table->decimal('total_horas', 6, 2);
             $table->char('estado', 1);
             $table->timestamps();
+            $table->foreign('id_maquinaria')->references('id_maquinaria')->on('maquinaria');
         });
     }
 

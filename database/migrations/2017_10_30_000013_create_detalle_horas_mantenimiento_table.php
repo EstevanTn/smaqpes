@@ -17,6 +17,7 @@ class CreateDetalleHorasMantenimientoTable extends Migration
             $table->increments('id_detalle_horas_mantenimiento');
             $table->integer('id_horas_mantenimiento')->unsigned();
             $table->integer('id_material')->unsigned();
+            $table->integer('id_material_proveedor')->unsigned();
             $table->string('tipo_material', 20);
             $table->string('descripcion', 250);
             $table->decimal('cantidad', 6, 2)->nullable();
@@ -25,7 +26,7 @@ class CreateDetalleHorasMantenimientoTable extends Migration
             $table->boolean('estado');
             $table->timestamps();
             $table->foreign('id_material')->references('id_material')->on('material');
-            $table->foreign('id_horas_mantenimiento')->references('id_horas_mantenimiento')->on('horas_mantenimiento');
+            $table->foreign('id_material_prooveedor')->references('id_material_prooveedor')->on('material_prooveedor');
         });
     }
 

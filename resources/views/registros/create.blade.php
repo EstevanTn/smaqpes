@@ -112,10 +112,14 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
+                            <input type="hidden" id="id_total_horas" name="id_total_horas">
                             <div class="form-group {{ $errors->has('total_horas') ? "has-error" : "" }}">
                                 <label for="total_horas" class="control-label col-xs-4">Total Horas</label>
                                 <div class="col-xs-8">
-                                    <input required type="text" class="form-control" id="total_horas" name="total_horas" value="{{ old('total_horas', isset($registro) ? $registro->total_horas : "") }}">
+                                    <input list="list_horas_mantenimiento" required type="text" class="form-control" id="total_horas" name="total_horas" value="{{ old('total_horas', isset($registro) ? $registro->total_horas : "") }}">
+                                    <datalist id="list_horas_mantenimiento">
+
+                                    </datalist>
                                 </div>
                                 @if($errors->has('total_horas'))
                                     <span class="help-block"><strong>{{$errors->first('total_horas')}}</strong></span>
@@ -181,7 +185,7 @@
                             <div class="form-group {{ $errors->has('kilometraje') }}">
                                 <label for="kilometraje" class="control-label col-xs-4">Kilometraje</label>
                                 <div class="col-xs-8">
-                                    <input required type="number" class="form-control" id="kilometraje" name="kilometraje" value="{{ old('kilometraje', isset($registro) ? $registro->kilometraje : "") }}">
+                                    <input type="number" class="form-control" id="kilometraje" name="kilometraje" value="{{ old('kilometraje', isset($registro) ? $registro->kilometraje : "") }}">
                                 </div>
                                 @if($errors->has('kilometraje'))
                                     <span class="help-block"><strong>{{$errors->first('kilometraje')}}</strong></span>
@@ -437,6 +441,7 @@
         var urlListarClientes = '{{ route('clientes.getAll') }}';
         var urlListarMaquinarias = '{{ route('maquinaria.getAll') }}';
         var urlListarPersonal = '{{ route('personal.getAll') }}';
+        var urlListarHorasMantenimiento = '{{ route('registros.getHorasMantenimiento') }}';
         function validate() {
             if($('#frmRegistro').valid()){
                 $('#frmRegistro').get(0).submit();
