@@ -26,7 +26,9 @@ class CreateDetalleHorasMantenimientoTable extends Migration
             $table->boolean('estado');
             $table->timestamps();
             $table->foreign('id_material')->references('id_material')->on('material');
-            $table->foreign('id_material_prooveedor')->references('id_material_prooveedor')->on('material_prooveedor');
+            $table->foreign('id_horas_mantenimiento')
+                ->references('id_horas_mantenimiento')->on('horas_mantenimiento');
+            //$table->foreign('id_material_prooveedor')->references('id_material_prooveedor')->on('material_prooveedor');
         });
     }
 

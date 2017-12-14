@@ -78,9 +78,18 @@ Route::post('/materiales', 'MaterialController@store')->name('materiales.store')
 Route::get('/registros', 'RegistrosController@index')->name('registros');
 Route::get('/registros/detalle/{id}', 'RegistrosController@detalle')->name('registros.detalle');
 Route::get('/registros/create', 'RegistrosController@create')->name('registros.create');
+Route::get('/registros/{id_registro}/material/create', 'RegistrosController@create_material')->name('registros.create.material');
+Route::get('/registros/{id_registro}/material/edit/{id}', 'RegistrosController@edit_material')->name('registros.edit.material');
+Route::get('/registros/{id_registro}/trabajo/create', 'RegistrosController@create_trabajo')->name('registros.create.trabajo');
+Route::get('/registros/{id_registro}/trabajo/edit/{id}', 'RegistrosController@edit_trabajo')->name('registros.edit.trabajo');
 Route::get('/registros/edit/{id}', 'RegistrosController@edit')->name('registros.edit');
 Route::get('/registros/delete/{id}', 'RegistrosController@delete')->name('registros.delete');
+Route::get('/registros/{id_registro}/material/delete/{id}', 'RegistrosController@delete_material')->name('registros.delete.material');
+Route::get('/registros/{id_registro}/trabajo/delete/{id}', 'RegistrosController@delete_trabajo')->name('registros.delete.trabajo');
+Route::get('/registros/usuario', 'RegistrosController@usuario')->name('registros.usuario');
 Route::post('/registros', 'RegistrosController@store')->name('registros.store');
+Route::post('/registros/{id_registro}/trabajo/store', 'RegistrosController@store_trabajo')->name('registros.store.trabajo');
+Route::post('/registros/{id_registro}/material/store', 'RegistrosController@store_material')->name('registros.store.material');
 
 Route::get('/clientes', 'ClienteController@index')->name('clientes');
 Route::get('/clientes/create', 'ClienteController@create')->name('clientes.create');
@@ -107,3 +116,4 @@ Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('
 Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');
 
 Route::post('/registros/getHorasMantenimiento', 'BackendRegistrosController@getHorasMantenimiento')->name('registros.getHorasMantenimiento');
+Route::post('/registros/getDetalleHorasMantenimiento', 'BackendRegistrosController@getDetalleHorasMantenimiento')->name('registros.getDetalleHorasMantenimiento');

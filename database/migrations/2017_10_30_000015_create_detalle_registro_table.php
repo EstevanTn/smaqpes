@@ -17,11 +17,12 @@ class CreateDetalleRegistroTable extends Migration
             $table->increments('id_detalle_registro');
             $table->integer('id_registro');
             $table->integer('id_material');
+            $table->integer('id_material_proveedor');
             $table->string('tipo_material', 20);
             $table->string('descripcion', 250);
-            $table->decimal('cantidad', 6, 2);
-            $table->decimal('litros', 6, 2);
-            $table->decimal('galones', 6, 2);
+            $table->decimal('cantidad', 6, 2)->nullable();
+            $table->decimal('litros', 6, 2)->nullable();
+            $table->decimal('galones', 6, 2)->nullable();
             $table->boolean('estado')->default(true);
             $table->boolean('eliminado')->default(false);
             $table->timestamps();

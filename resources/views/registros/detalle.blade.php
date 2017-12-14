@@ -13,25 +13,33 @@
             <li class="list-group-item"><a href="#div1" aria-expanded="true" class="collapsed" data-toggle="collapse"><i class="glyphicon glyphicon-save"></i> Registro</a>
                 <div id="div1" aria-expanded="true" class="content-collapse collapse in">
                     <div class="row">
-                        <div class="col-xs-4">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Registro N°</span>
-                                    <input readonly type="text" name="id_registro" id="id_registro" class="form-control" value="{{ $registro->id_registro }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Fecha Emisión</span>
-                                    <input readonly class="form-control" value="{{ substr($registro->fecha_emision, 0, 10) }}" type="text" id="fecha_emision" name="fecha_emision">
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-xs-12">
+                            <table class="table table-responsive">
+                                <tr>
+                                    <td style="width: 10%"><strong>Servicio N°</strong></td>
+                                    <td style="width: 40%">{{ $registro->id_registro }}</td>
+                                    <td style="width: 10%"><strong>Total Horas</strong></td>
+                                    <td style="width: 40%">{{ $registro->total_horas }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 10%"><strong>Horometro</strong></td>
+                                    <td style="width: 40%">{{ $registro->horometro }}</td>
+                                    <td style="width: 10%"><strong>Kilometraje</strong></td>
+                                    <td style="width: 40%">{{ $registro->kilometraje?$registro->kilometraje:'-' }}</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 10%"><strong>Fecha</strong></td>
+                                    <td style="width: 40%">{{ substr($registro->fecha_emision, 0, 10) }}</td>
+                                    <td style="width: 10%"><strong>Tipo Servicio</strong></td>
+                                    <td style="width: 40%">{{ \Illuminate\Support\Facades\DB::table('tipo_registro')->where('id_tipo_registro', $registro->id_tipo_registro)->first()->nombre }}</td>
+                                </tr>
+                            </table>
                             @if($registro->estado!='T')
                                 <div class="btn-group">
-                                    <button data-toggle="modal" data-target="#modal-material" type="button" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Agregar Material</button>
-                                    <button data-toggle="modal" data-target="#modal-detalle" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-plus"></i> Agregar Detalle</button>
+                                    @if(Auth::user()->id_rol==1)
+                                        <a href="{{ route('registros.create.material', ['id_registro'=>$registro->id_registro]) }}" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i> Agregar Material</a>
+                                    @endif
+                                    <a href="{{ route('registros.create.trabajo', ['id_registro'=>$registro->id_registro]) }}" class="btn btn-warning"><i class="glyphicon glyphicon-plus"></i> Agregar Detalle</a>
                                 </div>
                             @endif
                         </div>
@@ -40,6 +48,7 @@
             </li>
             <li class="list-group-item"><a href="#div2" data-toggle="collapse"><i class="glyphicon glyphicon-barcode"></i> Materiales</a>
                 <div id="div2" class="content-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    {{ $materiales->links() }}
                     <table class="table table-striped table-bordered table-hover" id="tb-materiales">
                         <thead>
                         <tr>
@@ -61,8 +70,8 @@
                                     <td>{{$material->litros}}</td>
                                     <td>{{$material->galones}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-link" data-toggle="tooltip" title="Editar"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <a href="#" class="btn btn-link" data-toggle="tooltip" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
+                                        <a href="{{ route('registros.edit.material', ['id_registro'=>$material->id_registro, 'id'=>$material->id_detalle_registro]) }}" class="btn btn-link" data-toggle="tooltip" title="Editar"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="javascript: delete_reg('{{ route('registros.delete.material', ['id_registro'=>$material->id_registro, 'id'=>$material->id_detalle_registro]) }}')" class="btn btn-link" data-toggle="tooltip" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -73,10 +82,12 @@
                         @endif
                         </tbody>
                     </table>
+                    {{ $materiales->links() }}
                 </div>
             </li>
             <li class="list-group-item"><a href="#div3" data-toggle="collapse"><i class="glyphicon glyphicon-list"></i> Detalle</a>
                 <div id="div3" class="content-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    {{ $detalle->links() }}
                     <table class="table table-striped table-bordered table-hover" id="tb-detalle">
                         <thead>
                         <tr>
@@ -110,96 +121,10 @@
                         @endif
                         </tbody>
                     </table>
+                    {{ $detalle->links() }}
                 </div>
             </li>
         </ul>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="modal fade" id="modal-material">
-                <div class="modal-dialog">
-                    <form class="modal-content">
-                        <div class="modal-header">
-                            <button data-dismiss="modal" class="close" type="button">&times;</button>
-                            <h4 class="modal-title"><i class="glyphicon glyphicon-save"></i> Registro de material</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4">
-                                    <input type="hidden" name="id_registro_material" id="id_registro_material" value="{{ $registro->id_registro }}">
-                                    <div class="form-group">
-                                        <label for="tipo_registro" class="control-label" style="width: 100%">Tipo registro</label>
-                                        <select min="1" name="tipo_registro" id="tipo_registro" class="form-control" style="width: 100%">
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-8">
-                                    <div class="form-group">
-                                        <label for="descripcion" class="control-label" style="width: 100%">Descripción</label>
-                                        <input required type="text" class="form-control" name="descripcion" id="descripcion">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="cantidad" class="control-label">Cantidad</label>
-                                        <input type="number" class="form-control" name="cantidad" id="cantidad">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="litros" class="control-label">Litros</label>
-                                        <input type="number" class="form-control" name="litros" id="litros">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="galones" class="control-label">Galones</label>
-                                        <input type="number" class="form-control" name="galones" id="galones">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-4">
-                                    <div class="form-group">
-                                        <label for="estado_material" class="control-label" style="width: 100%">Estado</label>
-                                        <select name="estado_material" id="estado_material" class="form-control" style="width: 100%">
-                                            <option value="1">ACTIVO</option>
-                                            <option value="0">INACTIVO</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button data-dismiss="modal" class="btn btn-default pull-left" type="button">Cancelar</button>
-                            <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-save"></i> Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12">
-            <div class="modal fade" id="modal-detalle">
-                <div class="modal-dialog">
-                    <form class="modal-content">
-                        <div class="modal-header">
-                            <button data-dismiss="modal" class="close" type="button">&times;</button>
-                            <h4 class="modal-title"><i class="glyphicon glyphicon-save"></i> Registro de detalle</h4>
-                        </div>
-                        <div class="modal-body">
-
-                        </div>
-                        <div class="modal-footer">
-                            <button data-dismiss="modal" class="btn btn-default pull-left" type="button">Cancelar</button>
-                            <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-save"></i> Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 

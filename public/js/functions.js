@@ -98,4 +98,5 @@ $(document).ready(function () {
         format: 'yyyy-m-d'
     });
     $('[data-toggle="tooltip"]').tooltip();
+    $('[data-dismiss="modal"]', '.modal-footer').addClass('pull-left');
 })

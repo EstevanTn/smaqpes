@@ -13,7 +13,7 @@ var cliente = {
                 {'data': 'razon_social', sWidth: '35%'},
                 {'data': function(row){ return row.nombres+" "+row.apellidos;}, sWidth: '40%'},
                 {'data': function(row){
-                    return "<input type='radio' data-info='"+JSON.stringify(row)+"' data-role='selected-cliente' />";
+                    return "<input name='selected-cliente' type='radio' data-info='"+JSON.stringify(row)+"' data-role='selected-cliente' />";
                 },sWidth: '10%', sClass: 'text-center'},
             ],
             drawCallback: function (settings) {
@@ -39,7 +39,7 @@ var cliente = {
                 { data: 'serie_chasis', sWidth: '13%'},
                 { data: 'serie_motor', sWidth: '12%'},
                 { data: function(row){
-                    return "<input type='radio' data-role='selected-maquinaria' data-info='"+JSON.stringify(row)+"' />";
+                    return "<input name='selected-maquinaria' type='radio' data-role='selected-maquinaria' data-info='"+JSON.stringify(row)+"' />";
                 }, sWidth: '10%', sClass: 'text-center'},
             ],
             drawCallback: function (options) {
@@ -124,16 +124,23 @@ var cliente = {
             data: { id_maquinaria: id_maquinaria },
             success: function (response) {
                 $.each(response.data, function (i, e) {
-                    list.append($('<option>',{
-                        value: this.total_horas,
-                        data: {
-                            id: this.id_horas_matenimiento,
-                        }
-                    }));
+                    var option = $('<option>',{
+                        text: this.total_horas,
+                        'data-value': this.id_horas_mantenimiento,
+                    });
+                    list.append(option);
                 });
                 $('#total_horas').off('input').on('input', function(e){
-                    var option = $('#list_horas_mantenimiento option:selected');
-                    console.dir(option);
+                    var text = $(this).val();
+                    $('#list_horas_mantenimiento option').each(function (i, e) {
+                        if($(this).text()===text){
+                            var id = $(this).data('value');
+                            $('#id_total_horas').val(id);
+                        }
+                    });
+                    if(text.trim()===''){
+                        $('#id_total_horas').val(0);
+                    }
                 });
             }
         });
@@ -148,5 +155,44 @@ $(document).ready(function(){
     });
     $('button[role="submit"]', '#modal-maquinaria').on('click', function (e) {
         cliente.buttonMaquinaria(this);
+    });
+    $('#btn-detalle-mantenimiento').on('click', function () {
+        $('#modal-detalle-mantenimiento').modal('show');
+        $.ajax({
+           url: urlListarDetalleHorasMantenimiento,
+            type: 'POST',
+            data:{ id_horas: $('#id_total_horas').val() },
+            success: function (response) {
+               console.log(response);
+                $('#tb-detalle-mantenimiento').DataTable({
+                    data: response.data,
+                    destroy: true,
+                    columns: [
+                        { data: 'descripcion', sWidth: '36%' },
+                        { data: 'tipo_material', sWidth: '15%' },
+                        { data: function (row, type, set, meta) {
+                            if(row.cantidad){
+                                return row.cantidad;
+                            }
+                            return '-';
+                        }, sWidth: '10%', sClass: 'text-right' },
+                        { data: function (row, type, set, meta) {
+                            if(row.litros){
+                                return row.litros;
+                            }
+                            return '-';
+                        }, sWidth: '7%', sClass: 'text-right' },
+                        { data: function (row, type, set, meta) {
+                            if(row.galones){
+                                return row.galones;
+                            }
+                            return '-';
+                        }, sWidth: '7%', sClass: 'text-right' },
+                        { data: 'nombre_proveedor', sWidth: '15%' },
+                        { data: 'precio_proveedor', sWidth: '10%', sClass:'text-right' },
+                    ]
+                });
+            }
+        });
     });
 });

@@ -100,7 +100,7 @@
                                 <label for="fecha_emision" class="control-label col-xs-4">Fecha Emisión</label>
                                 <div class="col-xs-8">
                                     <div class="input-group">
-                                        <input required data-toggle="datepicker" type="text" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ old('fecha_emision', isset($registro) ? $registro->fecha_emision : "") }}">
+                                        <input required data-toggle="datepicker" type="text" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ old('fecha_emision', isset($registro) ? substr($registro->fecha_emision, 0, 10) : "") }}">
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>
@@ -116,10 +116,17 @@
                             <div class="form-group {{ $errors->has('total_horas') ? "has-error" : "" }}">
                                 <label for="total_horas" class="control-label col-xs-4">Total Horas</label>
                                 <div class="col-xs-8">
-                                    <input list="list_horas_mantenimiento" required type="text" class="form-control" id="total_horas" name="total_horas" value="{{ old('total_horas', isset($registro) ? $registro->total_horas : "") }}">
-                                    <datalist id="list_horas_mantenimiento">
+                                    <div class="input-group">
+                                        <input list="list_horas_mantenimiento" required type="text" class="form-control" id="total_horas" name="total_horas" value="{{ old('total_horas', isset($registro) ? $registro->total_horas : "") }}">
+                                        <datalist id="list_horas_mantenimiento">
 
-                                    </datalist>
+                                        </datalist>
+                                        <span class="input-group-btn">
+                                            <button id="btn-detalle-mantenimiento" class="btn btn-default" type="button"
+                                                    title="Ver detalle de horas mantenimiento" data-toggle="tooltip"><i
+                                                        class="glyphicon glyphicon-list"></i></button>
+                                        </span>
+                                    </div>
                                 </div>
                                 @if($errors->has('total_horas'))
                                     <span class="help-block"><strong>{{$errors->first('total_horas')}}</strong></span>
@@ -430,6 +437,31 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modal-detalle-mantenimiento">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><i class="glyphicon glyphicon-list"></i> Detalle de Horas mantenimiento</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped table-bordered table-hover" id="tb-detalle-mantenimiento">
+                            <thead>
+                            <th>Material</th>
+                            <th>Tipo Material</th>
+                            <th>Cantidad</th>
+                            <th>Litros</th>
+                            <th>Galones</th>
+                            <th>Proveedor</th>
+                            <th>Precio</th>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -442,6 +474,7 @@
         var urlListarMaquinarias = '{{ route('maquinaria.getAll') }}';
         var urlListarPersonal = '{{ route('personal.getAll') }}';
         var urlListarHorasMantenimiento = '{{ route('registros.getHorasMantenimiento') }}';
+        var urlListarDetalleHorasMantenimiento = '{{ route('registros.getDetalleHorasMantenimiento') }}';
         function validate() {
             if($('#frmRegistro').valid()){
                 $('#frmRegistro').get(0).submit();
@@ -459,6 +492,10 @@
                 estado: "{{ old('estado', isset($registro) ? $registro->estado : "E") }}"
             })
             $('input[name="estado_maquinaria"]').val('{{ old('estado_maquinaria', isset($registro) ? $registro->estado_maquinaria:"O") }}');
+            @isset($registro)
+                cliente.getHorasMantenimiento({{ $registro->id_maquinaria }});
+                $('#id_total_horas').val({{ $registro->id_horas==null ? 0 : $registro->id_horas }});
+            @endisset
         });
     </script>
     <script src="{{ asset('js/registro.js') }}"></script>

@@ -15,7 +15,7 @@ function getCurrentDate(){
 }
 
 function castDateTime($datetimeString){
-    return \Illuminate\Support\Facades\DB::raw('(SELECT CAST(\''.$datetimeString.'\' as DATETIME))');
+    return \Illuminate\Support\Facades\DB::raw('(SELECT CAST('.$datetimeString.' as DATETIME))');
 }
 
 function listar_archivos($carpeta){
@@ -31,4 +31,15 @@ function listar_archivos($carpeta){
         }
     }
     return $list;
+}
+
+function search_object($objects, $keyFind, $value){
+    $exist = null;
+    foreach ($objects as $key => $item){
+        if ($item[$keyFind] === $value){
+            $exist = $item;
+            break;
+        }
+    }
+    return $exist;
 }
