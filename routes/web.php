@@ -116,5 +116,8 @@ Route::post('/clientes/GetAll', 'BackendClienteController@GetAll')->name('client
 Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('maquinaria.getAll');
 Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');
 
+Route::get('/reporte/graphics/gastos', 'GraphicsController@reporte_gastos')->name('graphics');
+Route::post('/reporte/graphics/gastos', 'GraphicsController@reporte_gastos')->name('graphics.search');
+
 Route::post('/registros/getHorasMantenimiento', 'BackendRegistrosController@getHorasMantenimiento')->name('registros.getHorasMantenimiento');
 Route::post('/registros/getDetalleHorasMantenimiento', 'BackendRegistrosController@getDetalleHorasMantenimiento')->name('registros.getDetalleHorasMantenimiento');

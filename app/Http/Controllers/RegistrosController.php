@@ -101,7 +101,7 @@ class RegistrosController extends Controller
                         'cantidad' => $row->cantidad,
                         'litros' => $row->litros,
                         'galones' => $row->galones,
-                        'estado' => 'A',
+                        'estado' => 1,
                         'eliminado' =>false,
                         'created_at' => getCurrentDate()
                     ]);

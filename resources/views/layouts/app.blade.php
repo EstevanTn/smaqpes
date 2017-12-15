@@ -58,6 +58,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                        <li class="active"><a href="{{ back()->getTargetUrl() }}"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a></li>
                         <?=getLinksHTML()?>
                     </ul>
 

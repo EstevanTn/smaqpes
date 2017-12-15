@@ -1,0 +1,34 @@
+<?php
+
+namespace App;
+
+class Chart
+{
+    public $title;
+    protected $data;
+    public $width;
+    public $height;
+    public function __construct($title, array $labels, array $dataSets=[])
+    {
+        $this->width = 400;
+        $this->height = 200;
+        $this->title = $title;
+        $this->data = Chart::ArrayToObject([
+           'labels' => $labels,
+            'datasets' => $dataSets
+        ]);
+    }
+
+    public function data(){
+        return json_encode($this->data);
+    }
+
+    public static function ArrayToObject(array $attributes){
+        $object = new \stdClass();
+        foreach ($attributes as $key => $value){
+            $object->$key = $value;
+        }
+        return $object;
+    }
+
+}

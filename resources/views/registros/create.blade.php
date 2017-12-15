@@ -496,6 +496,13 @@
                 cliente.getHorasMantenimiento({{ $registro->id_maquinaria }});
                 $('#id_total_horas').val({{ $registro->id_horas==null ? 0 : $registro->id_horas }});
             @endisset
+            $('#tipo_registro').on('select2:select', function () {
+                if(parseInt($(this).val())!==1){
+                    $('#total_horas').attr('readonly', 'readonly');
+                }else{
+                    $('#total_horas').removeAttr('readonly');
+                }
+            });
         });
     </script>
     <script src="{{ asset('js/registro.js') }}"></script>
