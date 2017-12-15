@@ -111,6 +111,7 @@ Route::post('/paginas_rol/update', 'PaginasPermisoController@update')->name('pag
 //BackEnd
 Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');
 Route::post('/materiales/proveedor', 'BackendMaterialController@storeProveedor')->name('materiales.proveedor');
+Route::post('/materiales/GetAll', 'BackendMaterialController@getAllMateriales')->name('materiales.all');
 Route::post('/clientes/GetAll', 'BackendClienteController@GetAll')->name('clientes.getAll');
 Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('maquinaria.getAll');
 Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');

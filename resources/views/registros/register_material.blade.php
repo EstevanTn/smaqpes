@@ -96,5 +96,8 @@
 @endsection
 
 @section('scripts')
-
+    <script>
+        var urlListarMateriales = '{{ route('materiales.all') }}';
+    </script>
+    <script src="{{ asset('js/material.js') }}"></script>
 @endsection

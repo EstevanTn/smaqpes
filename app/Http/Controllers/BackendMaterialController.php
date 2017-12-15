@@ -46,5 +46,24 @@ class BackendMaterialController extends Controller
         }
     }
 
+    public function getAllMateriales(Request $request){
+        switch ($request['tipo']){
+            case 'tipo_material':
+                return $this->getMaterialesTipo($request['id_tipo_material']);
+                break;
+            case 'material_proveedor':
+                return $this->getMaterialesProveedores($request['id_material']);
+            default:
+                break;
+        }
+    }
+
+    private function getMaterialesTipo($id_tipo_material){
+        return DB::table('material')->where('id_tipo_material', $id_tipo_material)->get();
+    }
+
+    private function getMaterialesProveedores($id_material){
+        return DB::table('material_proveedor')->where('id_material', $id_material);
+    }
 
 }
