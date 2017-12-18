@@ -43,6 +43,7 @@
             <div class="col-xs-12">
                 <div style="margin-bottom: 15px" class="btn-group">
                     <a href="{{ route('maquinarias.create') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Agregar</a>
+                    <a href="javascript: confirmar_aumento_horometro()" class="btn btn-primary"><i class="glyphicon glyphicon-ok"></i> REGISTRAR DÍA DE TRABAJO</a>
                 </div>
             </div>
         </div>
@@ -104,4 +105,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function confirmar_aumento_horometro() {
+            BootstrapDialog.confirm({
+                message: '¿Desea iniciar el trabajo de las maquinarias?',
+                callback: function (result) {
+                    if(result){
+                        window.location.href = '{{ route('maquinarias.aumentar_horometro') }}';
+                    }
+                }
+            })
+        }
+    </script>
 @endsection

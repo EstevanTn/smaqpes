@@ -128,6 +128,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="" class="control-label col-xs-4">Estado</label>
+                            <div class="col-xs-8">
+                                <select name="estado" id="estado" class="form-control">
+                                    <option value="A">ACTIVO</option>
+                                    <option value="I">INACTIVO</option>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="panel-footer">
@@ -143,6 +152,12 @@
 @section('scripts')
     <script>
         $(document).ready(function (e) {
+            @isset($maquinaria)
+                selectOption({
+                    tipo_maquinaria: '{{ $maquinaria->id_tipo_maquinaria }}',
+                    estado: '{{ $maquinaria->estado }}'
+                });
+            @endif
             $('#tipo_maquinaria').on('change', function (e) {
                 if(parseInt($(this).val())>0){
                     $.ajax({

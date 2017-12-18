@@ -23,11 +23,28 @@ class HorasMantenimientoController extends Controller
     }
 
     public function create(){
-        return view('horasmantenimiento.register');
+        $maquinarias = DB::table('maquinaria')->where('eliminado', false)->get();
+        $tipos_material = DB::table('tipo_material')->get();
+        return view('horasmantenimiento.register',[
+            'maquinarias' => $maquinarias,
+            'tipos_material' => $tipos_material
+        ]);
     }
 
-    public function edit(){
-        return view('horasmantenimiento.register');
+    public function edit($id){
+        $maquinarias = DB::table('maquinaria')->where('eliminado', false)->get();
+        $entity = DB::table('horas_mantenimiento')->where('id_horas_mantenimiento', $id)->first();
+        $tipos_material = DB::table('tipo_material')->get();
+        $detalle = DB::table('detalle_horas_mantenimiento')
+            ->join('material_proveedor', 'material_proveedor.id_material_proveedor','=','detalle_horas_mantenimiento.id_material_proveedor')
+            ->select('detalle_horas_mantenimiento.*', 'material_proveedor.nombre as material', 'material_proveedor.precio')
+            ->where('id_horas_mantenimiento', $id)->paginate(10);
+        return view('horasmantenimiento.register',[
+            'maquinarias' => $maquinarias,
+            'entity' => $entity,
+            'detalle' => $detalle,
+            'tipos_material' => $tipos_material
+        ]);
     }
 
     public function delete($id){
@@ -40,5 +57,46 @@ class HorasMantenimientoController extends Controller
 
     public function update(Request $request){
 
+    }
+
+    public function detalle_store(Request $request){
+        DB::table('detalle_horas_mantenimiento')->insert([
+            'id_horas_mantenimiento' => $request['id_horas_mantenimiento'],
+            'tipo_material' => $request['tipo_material'],
+            'id_material' => $request['id_material'],
+            'id_material_proveedor' => $request['id_material_proveedor'],
+            'descripcion' => $request['descripcion'],
+            'cantidad' => $request['cantidad'],
+            'litros' => $request['litros'],
+            'litros' => $request['litros'],
+            'galones' => $request['galones'],
+            'estado' => $request['estado']
+        ]);
+        return response()->json([
+            'success' => true,
+            'message' => 'Se ha insertado correctamente el detalle.'
+        ]);
+    }
+
+    public function detalle_update(Request $request){
+        DB::table('detalle_horas_mantenimiento')
+            ->where('id_detalle_horas_mantenimiento', $request['id_detalle_horas_mantenimiento'])
+            ->update([
+            'id_horas_mantenimiento' => $request['id_horas_mantenimiento'],
+            'tipo_material' => $request['tipo_material'],
+            'id_material' => $request['id_material'],
+            'id_material_proveedor' => $request['id_material_proveedor'],
+            'descripcion' => $request['descripcion'],
+            'cantidad' => $request['cantidad'],
+            'litros' => $request['litros'],
+            'litros' => $request['litros'],
+            'galones' => $request['galones'],
+             'estado' => $request['estado']
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Se ha actualizaod correctamente el detalle.'
+        ]);
     }
 }

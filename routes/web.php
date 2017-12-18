@@ -57,6 +57,7 @@ Route::get('/maquinarias/delete/{id}', 'MaquinariaController@delete')->name('maq
 Route::post('/maquinarias', 'MaquinariaController@store')->name('maquinarias.store');
 Route::post('/maquinarias/search', 'MaquinariaController@search')->name('maquinarias.search');
 Route::get('/maquinarias/search', 'MaquinariaController@index');
+Route::get('/maquinarias/aumentar_horometro', 'MaquinariaController@aumentar_horometro')->name('maquinarias.aumentar_horometro');
 
 Route::get('/maquinarias/{id_maquinaria}/historial', 'MaquinariaHistorialController@index')->name('maquinarias.historial');
 Route::get('/maquinarias/{id_maquinaria}/historial/create', 'MaquinariaHistorialController@create')->name('maquinarias.historial.create');
@@ -120,6 +121,8 @@ Route::post('/paginas_rol/update', 'PaginasPermisoController@update')->name('pag
 Route::get('/horasmantenimiento', 'HorasMantenimientoController@index')->name('horasmantenimiento');
 Route::get('/horasmantenimiento/create', 'HorasMantenimientoController@create')->name('horasmantenimiento.create');
 Route::get('/horasmantenimiento/edit/{id}', 'HorasMantenimientoController@edit')->name('horasmantenimiento.edit');
+Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/store', 'HorasMantenimientoController@detalle_store')->name('horasmantenimiento.detalle.store');
+Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/update', 'HorasMantenimientoController@detalle_update')->name('horasmantenimiento.detalle.update');
 Route::post('/horasmantenimiento/store', 'HorasMantenimientoController@delete')->name('horasmantenimiento.store');
 Route::post('/horasmantenimiento/update', 'HorasMantenimientoController@delete')->name('horasmantenimiento.update');
 Route::post('/horasmantenimiento/delete', 'HorasMantenimientoController@delete')->name('horasmantenimiento.delete');
