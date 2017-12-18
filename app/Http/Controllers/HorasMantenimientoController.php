@@ -47,8 +47,18 @@ class HorasMantenimientoController extends Controller
         ]);
     }
 
-    public function delete($id){
-
+    public function delete(Request $request){
+        try{
+            DB::table('detalle_horas_mantenimiento')->where('id_horas_mantenimiento', $request['id'])->delete();
+            $rows = DB::table('horas_mantenimiento')->where('id_horas_mantenimiento', $request['id'])->delete();
+            if ($rows>0){
+                return redirect(back()->getTargetUrl())->with('deleted','Se ha eliminado el registro correctamente.');
+            }else{
+                return redirect(back()->getTargetUrl())->with('error', 'Error al intentar eliminar el registro.');
+            }
+        }catch (\Exception $ex){
+            return redirect(back()->getTargetUrl())->with('error',$ex->getMessage());
+        }
     }
 
     public function store(Request $request){

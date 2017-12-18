@@ -10,8 +10,8 @@ class Chart
     public $height;
     public function __construct($title, array $labels, array $dataSets=[])
     {
-        $this->width = 400;
-        $this->height = 200;
+        $this->width = 402;
+        $this->height = 201;
         $this->title = $title;
         $this->data = Chart::ArrayToObject([
            'labels' => $labels,

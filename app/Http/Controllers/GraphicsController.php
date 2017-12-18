@@ -12,21 +12,27 @@ class GraphicsController extends Controller
     protected $titleChart;
     protected $labels;
     protected $dataSets;
+    protected $keys;
 
     protected function defaults(){
         $this->titleChart = 'REPORTE GRAFICO';
         $this->labels = array();
         $this->dataSets = array();
+        $this->keys = array();
     }
 
     public function reporte_gastos(Request $request){
         $this->rangeDates($request);
         $chart = new Chart($this->titleChart, $this->labels, $this->dataSets);
-        return view('reportes.gastos.bar', [
+        $chartOptions = [
             'startDate' => $this->dateArray($request['startDate'], 0, $request['startDate']!=null?0:-1)->dateToString,
             'endDate' => empty($request['endDate']) ? '' : $this->dateArray($request['endDate'], 0,0)->dateToString,
             'chart' => $chart
-        ]);
+        ];
+        if ($request->isMethod('POST')){
+            //dd($chartOptions);
+        }
+        return view('reportes.gastos.bar', $chartOptions);
     }
 
     private function rangeDates($request){
@@ -42,8 +48,6 @@ class GraphicsController extends Controller
             $endDate = null;
         }
 
-        $results = array();
-
         if ($endDate==null){
             $results = DB::table('registro')
                 ->where([
@@ -54,16 +58,19 @@ class GraphicsController extends Controller
         }else{
             $results = DB::table('registro')
                 ->where([
-                    'id_tipo_registro'=> $request['id_tipo_registro'],
-                    'eliminado' => false
-                ])->where([
-                    ['fecha_emision', '>=', castDateTime($startDate->dateToString)],
-                    ['fecha_emision', '<=', castDateTime($endDate->dateToString)]
+                    [ 'id_tipo_registro', '=', $request['id_tipo_registro'] ],
+                    [ 'eliminado', '', false ],
+                    [DB::raw('CAST(fecha_emision AS DATE)'), '>=', DB::raw("CAST('$startDate->dateToString' AS DATE)")],
+                    [DB::raw('CAST(fecha_emision AS DATE)'), '<=', DB::raw("CAST('$endDate->dateToString' AS DATE)")]
                 ])->get();
         }
 
         foreach ($results as $row){
-            $this->rowDataSet($row);
+            $dateKey = str_replace('-','_',substr($row->fecha_emision, 0, 10));
+            if (empty($this->keys[$dateKey])){
+                $this->keys[$dateKey] = array();
+            }
+            $this->rowDataSet($row, $dateKey);
         }
     }
 
@@ -94,16 +101,15 @@ class GraphicsController extends Controller
         ]);
     }
 
-    private function rowDataSet($row){
+    private function rowDataSet($row, $dateKey){
         $maquinaria = DB::table('maquinaria')->where('id_maquinaria', $row->id_maquinaria)->first();
         $detalle = DB::table('detalle_registro')
             ->join('material_proveedor', 'material_proveedor.id_material_proveedor', '=', 'detalle_registro.id_material_proveedor')
             ->select('detalle_registro.*','material_proveedor.precio')
             ->where('id_registro', $row->id_registro)
             ->get();
-        array_push($this->labels, substr($row->fecha_emision,0,10));
         $suma = 0;
-        foreach ($detalle as $item){
+        foreach ($detalle as $key => $item){
             if ($item->cantidad!=null){
                 $suma += ($item->cantidad*$item->precio);
             }else{
@@ -112,16 +118,32 @@ class GraphicsController extends Controller
                 }
             }
         }
-        $num = (int)rand(0, 20);
-        array_push($this->dataSets, [
-            'label' => $maquinaria->nombre,
-            'backgroundColor' => getRGBAColor($num),
-            'borderColor' => getRGBAColor($num+1),
-            'borderWidth' => 1,
-            'data' => [
-                $suma,
-            ],
-        ]);
+        if (!in_array('m_'.$row->id_maquinaria, $this->keys[$dateKey])){
+            array_push($this->keys[$dateKey], 'm_'.$row->id_maquinaria);
+            if (!in_array(substr($row->fecha_emision,0,10), $this->labels)){
+                array_push($this->labels, substr($row->fecha_emision,0,10));
+            }
+            $num = (int)rand(0, 20);
+            $color = getRGBAColor($num);
+            $borderColor = getRGBAColor($num);
+            array_push($this->dataSets, [
+                'label' => $maquinaria->nombre,
+                'backgroundColor' => $color,
+                'borderColor' => $borderColor,
+                'borderWidth' => 1,
+                'data' => [
+                    $suma,
+                ],
+            ]);
+        }else{
+            foreach ($this->keys[$dateKey] as $key => $value){
+                if ($value=='m_'.$maquinaria->id_maquinaria){
+                    $data = $this->dataSets[$key]['data'][0];
+                    $this->dataSets[$key]['data'][0] = $data + $suma;
+                    //array_push($this->dataSets[$key]['data'], $suma);
+                }
+            }
+        }
 
     }
 

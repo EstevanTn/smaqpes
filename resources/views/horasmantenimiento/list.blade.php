@@ -13,6 +13,9 @@
             <a href="{{ route('horasmantenimiento.create') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Nuevo</a>
         </div>
         <div class="col-xs-12">
+            @include('partials.messages')
+        </div>
+        <div class="col-xs-12">
             <table id="tb-horas" class="table table-striped table-bordered table-hover">
                 <thead>
                 <th>Total Horas</th>
