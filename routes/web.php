@@ -82,11 +82,19 @@ Route::get('/registros/{id_registro}/material/create', 'RegistrosController@crea
 Route::get('/registros/{id_registro}/material/edit/{id}', 'RegistrosController@edit_material')->name('registros.edit.material');
 Route::get('/registros/{id_registro}/trabajo/create', 'RegistrosController@create_trabajo')->name('registros.create.trabajo');
 Route::get('/registros/{id_registro}/trabajo/edit/{id}', 'RegistrosController@edit_trabajo')->name('registros.edit.trabajo');
+Route::get('/registros/{id_registro}/trabajo/personal/{id_personal}/create', 'RegistrosController@create_trabajo')->name('registros.create.trabajoUsuario');
+Route::get('/registros/{id_registro}/trabajo/personal/{id_personal}/edit/{id}', 'RegistrosController@edit_trabajo')->name('registros.edit.trabajoUsuario');
 Route::get('/registros/edit/{id}', 'RegistrosController@edit')->name('registros.edit');
 Route::get('/registros/delete/{id}', 'RegistrosController@delete')->name('registros.delete');
 Route::get('/registros/{id_registro}/material/delete/{id}', 'RegistrosController@delete_material')->name('registros.delete.material');
 Route::get('/registros/{id_registro}/trabajo/delete/{id}', 'RegistrosController@delete_trabajo')->name('registros.delete.trabajo');
+Route::get('/registros/{id_registro}/detalle/personal/{id_personal}', 'RegistrosController@usuario_detalle')->name('registros.details.usuario');
+Route::get('/registros/{id_registro}/detalle/personal/{id_personal}/create', 'RegistrosController@usuario_detalle')->name('registros.details.create.usuario');
+//Route::get('/registros/{id_registro}/detalle/personal/{id_personal}/edit/{id}', 'RegistrosController@usuario_detalle')->name('registros.details.edit.usuario');
+//Route::post('/registros/{id_registro}/detalle/personal/{id_personal}/delete/{id}', 'RegistrosController@usuario_detalle')->name('registros.details.delete.usuario');
 Route::get('/registros/usuario', 'RegistrosController@usuario')->name('registros.usuario');
+Route::get('/registros/usuario/search', 'RegistrosController@usuario')->name('registros.usuario.search');
+Route::post('/registros/usuario/search', 'RegistrosController@usuario');
 Route::post('/registros', 'RegistrosController@store')->name('registros.store');
 Route::post('/registros/{id_registro}/trabajo/store', 'RegistrosController@store_trabajo')->name('registros.store.trabajo');
 Route::post('/registros/{id_registro}/material/store', 'RegistrosController@store_material')->name('registros.store.material');
@@ -107,6 +115,14 @@ Route::get('/paginas_rol/search', 'PaginasPermisoController@index');
 Route::post('/paginas_rol/search', 'PaginasPermisoController@search')->name('paginas_rol.search');
 Route::post('/paginas_rol/store', 'PaginasPermisoController@store')->name('paginas_rol.store');
 Route::post('/paginas_rol/update', 'PaginasPermisoController@update')->name('paginas_rol.update');
+
+
+Route::get('/horasmantenimiento', 'HorasMantenimientoController@index')->name('horasmantenimiento');
+Route::get('/horasmantenimiento/create', 'HorasMantenimientoController@create')->name('horasmantenimiento.create');
+Route::get('/horasmantenimiento/edit/{id}', 'HorasMantenimientoController@edit')->name('horasmantenimiento.edit');
+Route::post('/horasmantenimiento/store', 'HorasMantenimientoController@delete')->name('horasmantenimiento.store');
+Route::post('/horasmantenimiento/update', 'HorasMantenimientoController@delete')->name('horasmantenimiento.update');
+Route::post('/horasmantenimiento/delete', 'HorasMantenimientoController@delete')->name('horasmantenimiento.delete');
 
 //BackEnd
 Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');

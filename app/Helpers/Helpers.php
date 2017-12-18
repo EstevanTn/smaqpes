@@ -1,4 +1,8 @@
 <?php
+
+function getRolAdmin(){
+    return 1;
+}
 /**
  * @return string
  */
@@ -16,7 +20,7 @@ function getCurrentDate(){
 
 function castDateTime($datetimeString){
     if (strlen($datetimeString)>10){
-        $datetimeString = strlen($datetimeString, 0, 10);
+        $datetimeString = substr($datetimeString, 0, 10);
     }
     $values = explode('-', $datetimeString);
     if ((int)$values[2]>12 &&(int)$values[2]>(int)$values[1]){
