@@ -23,12 +23,12 @@ function castDateTime($datetimeString){
         $datetimeString = substr($datetimeString, 0, 10);
     }
     $values = explode('-', $datetimeString);
-    /*if ((int)$values[2]>12 &&(int)$values[2]>(int)$values[1]){
+    if ((int)$values[2]>12 &&(int)$values[2]>(int)$values[1]){
         $temp = $values[1];
         $values[1] = $values[2];
         $values[2] = $temp;
         $datetimeString = "$values[0]-$values[1]-$values[2]";
-    }*/
+    }
     $date = \Illuminate\Support\Facades\DB::raw("(SELECT CAST('$datetimeString' as DATETIME))");
     return $date;
 }

@@ -22,16 +22,23 @@ class GraphicsController extends Controller
     }
 
     public function reporte_gastos(Request $request){
+        if ($request->isMethod('POST')){
+            $this->validate($request,[
+               'id_tipo_maquinaria' => 'required|numeric|min:1',
+                'startDate' => 'required|date',
+                'endDate' => 'nullable|date',
+            ]);
+        }
+        $tipos_maquinaria = DB::table('tipo_maquinaria')->get();
         $this->rangeDates($request);
         $chart = new Chart($this->titleChart, $this->labels, $this->dataSets);
         $chartOptions = [
             'startDate' => $this->dateArray($request['startDate'], 0, $request['startDate']!=null?0:-1)->dateToString,
             'endDate' => empty($request['endDate']) ? '' : $this->dateArray($request['endDate'], 0,0)->dateToString,
-            'chart' => $chart
+            'chart' => $chart,
+            'tipos_maquinaria' => $tipos_maquinaria,
+            'id_tipo_maquinaria' => !empty($request['id_tipo_maquinaria']) ? $request['id_tipo_maquinaria'] :'',
         ];
-        if ($request->isMethod('POST')){
-            //dd($chartOptions);
-        }
         return view('reportes.gastos.bar', $chartOptions);
     }
 
@@ -50,13 +57,25 @@ class GraphicsController extends Controller
 
         if ($endDate==null){
             $results = DB::table('registro')
+                ->join('maquinaria', 'registro.id_maquinaria','=', 'maquinaria.id_maquinaria')
+                ->join('tipo_maquinaria', 'maquinaria.id_tipo_maquinaria','=', 'tipo_maquinaria.id_tipo_maquinaria')
+                ->select('registro.*')
                 ->where([
-                    'id_tipo_registro'=> $request['id_tipo_registro'],
-                    'eliminado' => false
+                    'registro.id_tipo_registro'=> $request['id_tipo_registro'],
+                    'registro.eliminado' => false,
+                    'tipo_maquinaria.id_tipo_maquinaria' => $request['id_tipo_maquinaria'],
                 ])
-                ->where('fecha_emision', '>=', castDateTime($startDate->dateToString))->get();
+                ->where('fecha_emision', '=', castDateTime($startDate->dateToString))->get();
         }else{
             $results = DB::table('registro')
+                ->join('maquinaria', 'registro.id_maquinaria','=', 'maquinaria.id_maquinaria')
+                ->join('tipo_maquinaria', 'maquinaria.id_tipo_maquinaria','=', 'tipo_maquinaria.id_tipo_maquinaria')
+                ->select('registro.*')
+                ->where([
+                    'registro.id_tipo_registro'=> $request['id_tipo_registro'],
+                    'registro.eliminado' => false,
+                    'tipo_maquinaria.id_tipo_maquinaria' => $request['id_tipo_maquinaria'],
+                ])
                 ->where([
                     [ 'id_tipo_registro', '=', $request['id_tipo_registro'] ],
                     [ 'eliminado', '', false ],
