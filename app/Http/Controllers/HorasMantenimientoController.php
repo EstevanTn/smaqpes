@@ -62,11 +62,37 @@ class HorasMantenimientoController extends Controller
     }
 
     public function store(Request $request){
-
+        $this->validation($request);
+        $id = DB::table('horas_mantenimiento')->insertGetId([
+            'id_maquinaria' => $request['id_maquinaria'],
+            'total_horas' => $request['total_horas'],
+            'estado' => $request['estado'],
+            'created_at' => getCurrentDate()
+        ]);
+        $redirect = route('horasmantenimiento.edit',['id'=>$id]);
+        return redirect($redirect)->with('inserted', 'Se ha insertado correcramente el registro. Proceda ha agregar el detalle');
     }
 
     public function update(Request $request){
+        $this->validation($request);
+        DB::table('horas_mantenimiento')
+            ->where('id_horas_mantenimiento', $request['id_horas_mantenimiento'])
+            ->update([
+            'id_maquinaria' => $request['id_maquinaria'],
+            'total_horas' => $request['total_horas'],
+            'estado' => $request['estado'],
+            'updated_at' => getCurrentDate()
+        ]);
+        $redirect = route('horasmantenimiento.edit',['id'=>$request['id_horas_mantenimiento']]);
+        return redirect($redirect)->with('updated', 'Se ha actualizado el registro.');
+    }
 
+    private function validation($request){
+        $this->validate($request,[
+            'id_maquinaria' => 'required|numeric|min:1',
+            'total_horas' => 'required|numeric|min:1',
+            'estado' => 'required'
+        ]);
     }
 
     public function detalle_store(Request $request){

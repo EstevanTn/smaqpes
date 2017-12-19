@@ -16,7 +16,7 @@ class CreatePaginaPermisoTable extends Migration
         Schema::create('pagina_permiso', function (Blueprint $table) {
             $table->increments('id_pagina_permiso');
             $table->integer('id_pagina_permiso_padre')->unsigned()->nullable();
-            $table->integer('id_rol');
+            $table->integer('id_rol')->unsigned();
             $table->string('icono', 50);
             $table->string('text', 50);
             $table->string('url', 200)->nullable();

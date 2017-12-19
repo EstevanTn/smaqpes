@@ -15,8 +15,8 @@ class CreateHorasTrabajadasTable extends Migration
     {
         Schema::create('horas_trabajadas', function (Blueprint $table) {
             $table->increments('id_horas_trabajadas');
-            $table->integer('id_registro');
-            $table->integer('id_personal');
+            $table->integer('id_registro')->unsigned();
+            $table->integer('id_personal')->unsigned();
             $table->decimal('horas', 6, 2);
             $table->string('descripcion', 1024);
             $table->dateTime('fecha');

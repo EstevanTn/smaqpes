@@ -123,8 +123,8 @@ Route::get('/horasmantenimiento/create', 'HorasMantenimientoController@create')-
 Route::get('/horasmantenimiento/edit/{id}', 'HorasMantenimientoController@edit')->name('horasmantenimiento.edit');
 Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/store', 'HorasMantenimientoController@detalle_store')->name('horasmantenimiento.detalle.store');
 Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/update', 'HorasMantenimientoController@detalle_update')->name('horasmantenimiento.detalle.update');
-Route::post('/horasmantenimiento/store', 'HorasMantenimientoController@delete')->name('horasmantenimiento.store');
-Route::post('/horasmantenimiento/update', 'HorasMantenimientoController@delete')->name('horasmantenimiento.update');
+Route::post('/horasmantenimiento/store', 'HorasMantenimientoController@store')->name('horasmantenimiento.store');
+Route::post('/horasmantenimiento/update', 'HorasMantenimientoController@update')->name('horasmantenimiento.update');
 Route::post('/horasmantenimiento/delete', 'HorasMantenimientoController@delete')->name('horasmantenimiento.delete');
 
 //BackEnd

@@ -15,7 +15,7 @@
                     <h4 class="panel-title"><i class="glyphicon glyphicon-pencil"></i> Registro de horas mantenimiento</h4>
                 </div>
                 <div class="panel-body">
-                    <form id="frm-horasmantenimiento" action="{{ isset($entity) ? route('horasmantenimiento.update') : route('horasmantenimiento.store') }}" class="form-horizontal">
+                    <form method="post" id="frm-horasmantenimiento" action="{{ isset($entity) ? route('horasmantenimiento.update') : route('horasmantenimiento.store') }}" class="form-horizontal">
                         {{ csrf_field() }}
                         <input type="hidden" value="{{ old('id_horas_mantenimiento', isset($entity)?$entity->id_horas_mantenimiento:0) }}" id="id_horas_mantenimiento" name="id_horas_mantenimiento">
                         <div class="row">
@@ -60,7 +60,7 @@
                     </form>
                 </div>
                 <div class="panel-footer">
-                    <a href="{{ back()->getTargetUrl() }}" class="btn btn-link"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+                    <a href="{{ route('horasmantenimiento') }}" class="btn btn-link"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
                     <div class="btn-group pull-right">
                         <button onclick="document.getElementById('frm-horasmantenimiento').submit()" class="btn btn-success"><i class="glyphicon glyphicon-save"></i> Guardar</button>
                     </div>

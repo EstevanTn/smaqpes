@@ -15,7 +15,7 @@ class CreateMaterialProveedor extends Migration
     {
         Schema::create('material_proveedor', function (Blueprint $table) {
             $table->increments('id_material_proveedor');
-            $table->integer('id_material');
+            $table->integer('id_material')->unsigned();
             $table->string('codigo', 20);
             $table->string('nombre', 50)->nullable();
             $table->string('descripcion', 250)->nullable();

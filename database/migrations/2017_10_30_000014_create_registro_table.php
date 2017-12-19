@@ -33,8 +33,8 @@ class CreateRegistroTable extends Migration
             $table->char('estado_maquinaria', 1)->nullable();
             $table->string('lugar_encontrado', 350)->nullable();
             $table->integer('id_operador')->unsigned()->nullable();
-            $table->integer('id_mecanico');
-            $table->integer('id_jefe_responsable');
+            $table->integer('id_mecanico')->unsigned();
+            $table->integer('id_jefe_responsable')->unsigned();
             $table->string('observacion', 500)->nullable();
             $table->char('estado', 1);
             $table->boolean('eliminado')->default(false);
