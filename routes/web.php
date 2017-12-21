@@ -57,6 +57,7 @@ Route::get('/maquinarias/delete/{id}', 'MaquinariaController@delete')->name('maq
 Route::post('/maquinarias', 'MaquinariaController@store')->name('maquinarias.store');
 Route::post('/maquinarias/search', 'MaquinariaController@search')->name('maquinarias.search');
 Route::get('/maquinarias/search', 'MaquinariaController@index');
+Route::get('/maquinarias/aumentar_horometro', 'MaquinariaController@aumentar_horometro')->name('maquinarias.aumentar_horometro');
 
 Route::get('/maquinarias/{id_maquinaria}/historial', 'MaquinariaHistorialController@index')->name('maquinarias.historial');
 Route::get('/maquinarias/{id_maquinaria}/historial/create', 'MaquinariaHistorialController@create')->name('maquinarias.historial.create');
@@ -82,11 +83,19 @@ Route::get('/registros/{id_registro}/material/create', 'RegistrosController@crea
 Route::get('/registros/{id_registro}/material/edit/{id}', 'RegistrosController@edit_material')->name('registros.edit.material');
 Route::get('/registros/{id_registro}/trabajo/create', 'RegistrosController@create_trabajo')->name('registros.create.trabajo');
 Route::get('/registros/{id_registro}/trabajo/edit/{id}', 'RegistrosController@edit_trabajo')->name('registros.edit.trabajo');
+Route::get('/registros/{id_registro}/trabajo/personal/{id_personal}/create', 'RegistrosController@create_trabajo')->name('registros.create.trabajoUsuario');
+Route::get('/registros/{id_registro}/trabajo/personal/{id_personal}/edit/{id}', 'RegistrosController@edit_trabajo')->name('registros.edit.trabajoUsuario');
 Route::get('/registros/edit/{id}', 'RegistrosController@edit')->name('registros.edit');
 Route::get('/registros/delete/{id}', 'RegistrosController@delete')->name('registros.delete');
 Route::get('/registros/{id_registro}/material/delete/{id}', 'RegistrosController@delete_material')->name('registros.delete.material');
 Route::get('/registros/{id_registro}/trabajo/delete/{id}', 'RegistrosController@delete_trabajo')->name('registros.delete.trabajo');
+Route::get('/registros/{id_registro}/detalle/personal/{id_personal}', 'RegistrosController@usuario_detalle')->name('registros.details.usuario');
+Route::get('/registros/{id_registro}/detalle/personal/{id_personal}/create', 'RegistrosController@usuario_detalle')->name('registros.details.create.usuario');
+//Route::get('/registros/{id_registro}/detalle/personal/{id_personal}/edit/{id}', 'RegistrosController@usuario_detalle')->name('registros.details.edit.usuario');
+//Route::post('/registros/{id_registro}/detalle/personal/{id_personal}/delete/{id}', 'RegistrosController@usuario_detalle')->name('registros.details.delete.usuario');
 Route::get('/registros/usuario', 'RegistrosController@usuario')->name('registros.usuario');
+Route::get('/registros/usuario/search', 'RegistrosController@usuario')->name('registros.usuario.search');
+Route::post('/registros/usuario/search', 'RegistrosController@usuario');
 Route::post('/registros', 'RegistrosController@store')->name('registros.store');
 Route::post('/registros/{id_registro}/trabajo/store', 'RegistrosController@store_trabajo')->name('registros.store.trabajo');
 Route::post('/registros/{id_registro}/material/store', 'RegistrosController@store_material')->name('registros.store.material');
@@ -108,6 +117,16 @@ Route::post('/paginas_rol/search', 'PaginasPermisoController@search')->name('pag
 Route::post('/paginas_rol/store', 'PaginasPermisoController@store')->name('paginas_rol.store');
 Route::post('/paginas_rol/update', 'PaginasPermisoController@update')->name('paginas_rol.update');
 
+
+Route::get('/horasmantenimiento', 'HorasMantenimientoController@index')->name('horasmantenimiento');
+Route::get('/horasmantenimiento/create', 'HorasMantenimientoController@create')->name('horasmantenimiento.create');
+Route::get('/horasmantenimiento/edit/{id}', 'HorasMantenimientoController@edit')->name('horasmantenimiento.edit');
+Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/store', 'HorasMantenimientoController@detalle_store')->name('horasmantenimiento.detalle.store');
+Route::post('/horasmantenimiento/{id_horas_mantenimiento}/detalle/update', 'HorasMantenimientoController@detalle_update')->name('horasmantenimiento.detalle.update');
+Route::post('/horasmantenimiento/store', 'HorasMantenimientoController@store')->name('horasmantenimiento.store');
+Route::post('/horasmantenimiento/update', 'HorasMantenimientoController@update')->name('horasmantenimiento.update');
+Route::post('/horasmantenimiento/delete', 'HorasMantenimientoController@delete')->name('horasmantenimiento.delete');
+
 //BackEnd
 Route::post('/maquinarias/getnombre', 'BackendMaquinariaController@getNombre')->name('backmaquinaria.getnombre');
 Route::post('/materiales/proveedor', 'BackendMaterialController@storeProveedor')->name('materiales.proveedor');
@@ -115,6 +134,9 @@ Route::post('/materiales/GetAll', 'BackendMaterialController@getAllMateriales')-
 Route::post('/clientes/GetAll', 'BackendClienteController@GetAll')->name('clientes.getAll');
 Route::post('/maquinarias/GetAll', 'BackendMaquinariaController@GetAll')->name('maquinaria.getAll');
 Route::post('/personal/GetAll', 'BackendPersonalController@GetAll')->name('personal.getAll');
+
+Route::get('/reporte/graphics/gastos', 'GraphicsController@reporte_gastos')->name('graphics');
+Route::post('/reporte/graphics/gastos', 'GraphicsController@reporte_gastos')->name('graphics.search');
 
 Route::post('/registros/getHorasMantenimiento', 'BackendRegistrosController@getHorasMantenimiento')->name('registros.getHorasMantenimiento');
 Route::post('/registros/getDetalleHorasMantenimiento', 'BackendRegistrosController@getDetalleHorasMantenimiento')->name('registros.getDetalleHorasMantenimiento');

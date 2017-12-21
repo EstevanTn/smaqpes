@@ -23,7 +23,7 @@ class CreateRegistroTable extends Migration
             $table->time('hora_inicio_mantto')->nullable();
             $table->time('hora_termino_mantto')->nullable();
             $table->integer('id_horas')->unsigned()->nullable();
-            $table->decimal('total_horas', 10,2);
+            $table->decimal('total_horas', 10,2)->nullable();
             $table->time('hora_salida_viaje')->nullable();
             $table->time('hora_llegada_viaje')->nullable();
             $table->time('hora_salida_retorno')->nullable();
@@ -33,8 +33,8 @@ class CreateRegistroTable extends Migration
             $table->char('estado_maquinaria', 1)->nullable();
             $table->string('lugar_encontrado', 350)->nullable();
             $table->integer('id_operador')->unsigned()->nullable();
-            $table->integer('id_mecanico');
-            $table->integer('id_jefe_responsable');
+            $table->integer('id_mecanico')->unsigned();
+            $table->integer('id_jefe_responsable')->unsigned();
             $table->string('observacion', 500)->nullable();
             $table->char('estado', 1);
             $table->boolean('eliminado')->default(false);

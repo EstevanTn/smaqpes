@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/timepicker/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         .input-group, .col-xs-12 > .btn-group {
@@ -105,6 +106,7 @@
     <script src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('plugins/bs-datepicker/bootstrap-datepicker.es.min.js') }}"></script>
+    <script src="{{ asset('plugins/timepicker/js/bootstrap-timepicker.js') }}"></script>
     <script src="{{ asset('plugins/validate/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('plugins/validate/messages_es_PE.js') }}"></script>
     <script src="{{ asset('js/functions.js') }}"></script>

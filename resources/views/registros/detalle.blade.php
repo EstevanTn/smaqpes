@@ -14,6 +14,7 @@
                 <div id="div1" aria-expanded="true" class="content-collapse collapse in">
                     <div class="row">
                         <div class="col-xs-12">
+                            @include('partials.messages')
                             <table class="table table-responsive">
                                 <tr>
                                     <td style="width: 10%"><strong>Servicio N°</strong></td>
@@ -106,11 +107,11 @@
                                     <td>{{$item->nombres}} {{ $item->apellidos }}</td>
                                     <td>{{$item->descripcion}}</td>
                                     <td>{{$item->horas}}</td>
-                                    <td>{{$item->hora_inicio}}</td>
-                                    <td>{{$item->hora_termino}}</td>
+                                    <td>{{substr($item->hora_inicio, 0, 8)}}</td>
+                                    <td>{{substr($item->hora_termino, 0,8)}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-link" data-toggle="tooltip" title="Editar"><i class="glyphicon glyphicon-edit"></i></a>
-                                        <a href="#" class="btn btn-link" data-toggle="tooltip" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
+                                        <a href="{{ route('registros.edit.trabajo', ['id_registro' => $item->id_registro, 'id' => $item->id_horas_trabajadas]) }}" class="btn btn-link" data-toggle="tooltip" title="Editar"><i class="glyphicon glyphicon-edit"></i></a>
+                                        <a href="javascript: delete_reg('{{ route('registros.delete.trabajo', ['id_registro' => $item->id_registro, 'id' => $item->id_horas_trabajadas]) }}')" class="btn btn-link" data-toggle="tooltip" title="Eliminar"><i class="glyphicon glyphicon-remove"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

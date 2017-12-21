@@ -113,6 +113,20 @@ class PaginasPermisoSeeder extends Seeder
                 'url' => 'registros'
             ]
         ]);
+        $id_menu_reporte = DB::table('pagina_permiso')->insertGetId([
+            'id_rol' => $id_administrador,
+            'icono' => 'glyphicon glyphicon-option-vertical',
+            'text' => 'REPORTES',
+        ]);
+        DB::table('pagina_permiso')->insert([
+            [
+                'id_pagina_permiso_padre' => $id_menu_reporte,
+                'id_rol' => $id_administrador,
+                'icono' => 'glyphicon glyphicon-object-align-bottom',
+                'text' => 'REPORTE GASTOS',
+                'url' => 'reporte/graphics/gastos'
+            ],
+        ]);
         //MENU TRABAJADOR
         DB::table('pagina_permiso')->insert([
             'id_rol' => $id_trabajador,

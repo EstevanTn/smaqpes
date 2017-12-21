@@ -32,7 +32,7 @@ class RegistroRequest extends FormRequest
             'lugar' => 'nullable|max:350',
             'lugar_encontrado' => 'nullable',
             'fecha_emision' => 'nullable|date',
-            'total_horas' => 'required|numeric',
+            'total_horas' => 'nullable|numeric',
             'horometro' => 'required|numeric',
             'kilometraje' => 'nullable|numeric',
             'id_operador' => 'numeric|min:1',

@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('id_rol')->nullable();
-            $table->integer('id_personal')->nullable();
+            $table->integer('id_rol')->unsigned()->nullable();
+            $table->integer('id_personal')->unsigned()->nullable();
             $table->enum('estado', ['ACTIVO','INACTIVO','BLOQUEADO'])->default('INACTIVO');
             $table->boolean('eliminado')->default(false);
             $table->rememberToken();

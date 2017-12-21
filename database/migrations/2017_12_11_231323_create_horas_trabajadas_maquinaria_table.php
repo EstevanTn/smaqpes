@@ -20,6 +20,7 @@ class CreateHorasTrabajadasMaquinariaTable extends Migration
             $table->time('hora_inicio')->nullable();
             $table->time('hora_termino')->nullable();
             $table->decimal('horometro', 8, 4);
+            $table->boolean('estado')->default(true);
             $table->timestamps();
             $table->foreign('id_maquinaria')
                 ->references('id_maquinaria')->on('maquinaria');

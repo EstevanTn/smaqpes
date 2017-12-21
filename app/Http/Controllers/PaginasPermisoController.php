@@ -50,7 +50,7 @@ class PaginasPermisoController extends Controller
 
     public function store(PaginaPermisoRequest $request){
         DB::table('pagina_permiso')->insert([
-            'id_pagina_permiso_padre' => $request['id_padre'],
+            'id_pagina_permiso_padre' => (int)$request['id_padre']==0?null:$request['id_padre'],
             'estado' => $request['estado'],
             'id_rol' => $request['id_rol'],
             'text' => $request['text'],

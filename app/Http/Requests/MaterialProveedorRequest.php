@@ -13,7 +13,7 @@ class MaterialProveedorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class MaterialProveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'precio' => 'required|numeric',
+            'cantidad' => 'nullable|numeric',
+            'galones' => 'nullable|numeric',
+            'litros' => 'nullable|numeric',
+            'estado' => 'required',
         ];
     }
 }

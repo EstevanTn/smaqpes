@@ -15,9 +15,9 @@ class CreateDetalleRegistroTable extends Migration
     {
         Schema::create('detalle_registro', function (Blueprint $table) {
             $table->increments('id_detalle_registro');
-            $table->integer('id_registro');
-            $table->integer('id_material');
-            $table->integer('id_material_proveedor');
+            $table->integer('id_registro')->unsigned();
+            $table->integer('id_material')->unsigned();
+            $table->integer('id_material_proveedor')->unsigned();
             $table->string('tipo_material', 20);
             $table->string('descripcion', 250);
             $table->decimal('cantidad', 6, 2)->nullable();

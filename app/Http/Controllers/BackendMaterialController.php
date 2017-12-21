@@ -63,7 +63,7 @@ class BackendMaterialController extends Controller
     }
 
     private function getMaterialesProveedores($id_material){
-        return DB::table('material_proveedor')->where('id_material', $id_material);
+        return DB::table('material_proveedor')->where('id_material', $id_material)->get();
     }
 
 }

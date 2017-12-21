@@ -78,6 +78,23 @@ $.validator.setDefaults({
     }
 });
 
+function diffTime(start, end) {
+    if(typeof(start)==='string' && typeof (end)==='string'){
+        start = start.split(":");
+        end = end.split(":");
+        start = { hours: start[0], minutes: start[1], seconds: start[2]?start[2]:0 }
+        end = { hours: end[0], minutes: end[1], seconds: end[2]?end[2]:0 }
+    }
+    var startDate = new Date(0, 0, 0, start.hours, start.minutes, start.seconds);
+    var endDate = new Date(0, 0, 0, end.hours, end.minutes, end.seconds);
+    var diff = endDate.getTime() - startDate.getTime();
+    var hours = Math.floor(diff / 1000 / 60 / 60);
+    diff -= hours * 1000 * 60 * 60;
+    var minutes = Math.floor(diff / 1000 / 60);
+
+    return (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes;
+}
+
 $(document).ready(function () {
     $.ajaxSetup({
         type: 'POST',
@@ -99,4 +116,5 @@ $(document).ready(function () {
     });
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-dismiss="modal"]', '.modal-footer').addClass('pull-left');
+    $('[data-toggle="timepicker"]').timepicker({ showMeridian: false, showInputs: true, defaultTime: false });
 })

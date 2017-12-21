@@ -30,7 +30,7 @@ function getDropdown($link, $childs){
 }
 
 function getLink($child){
-    $url = url($child->url);
+    $url = url($child->url==null?'':$child->url);
     return '<li><a href="'.$url.'"><i class="'.$child->icono.'"></i> '.$child->text.'</a></li>';
 }
 

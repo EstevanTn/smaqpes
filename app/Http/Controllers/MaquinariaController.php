@@ -60,6 +60,7 @@ class MaquinariaController extends Controller
                 'serie_motor' => $request['serie_motor'],
                 'serie_motor' => $request['serie_motor'],
                 'fecha_adquisicion' => $request['fecha_adquisicion'],
+                'estado' => $request['estado'],
                 'imagen' => $request['imagen'],
                 'eliminado' => false,
                 'created_at' => getCurrentDate()
@@ -76,6 +77,7 @@ class MaquinariaController extends Controller
                     'serie_chasis' => $request['serie_chasis'],
                     'serie_motor' => $request['serie_motor'],
                     'imagen' => $request['imagen'],
+                    'estado' => $request['estado'],
                     'fecha_adquisicion' => $request['fecha_adquisicion'],
                     'updated_at' => getCurrentDate()
                 ]);
@@ -90,4 +92,30 @@ class MaquinariaController extends Controller
         ])->paginate(15);
         return view('maquinaria.list', ['maquinarias' => $maquinarias]);
     }
+
+    public function aumentar_horometro(){
+        $results = DB::table('maquinaria')->where([
+            'eliminado' => false,
+            'estado' => true
+        ])->get();
+        foreach ($results as $item){
+            $r = DB::table('horas_trabajadas_maquinaria')->where([
+                [DB::raw('CAST(fecha_trabajo AS DATE)'), '=', DB::raw('CAST(GETDATE() AS DATE)')],
+                ['id_maquinaria','=',$item->id_maquinaria]
+            ])->count();
+            if ($r==0){
+                DB::table('horas_trabajadas_maquinaria')
+                    ->insert([
+                        'id_maquinaria' => $item->id_maquinaria,
+                        'fecha_trabajo' => getCurrentDate(),
+                        'horometro' => 8,
+                        'created_at' => getCurrentDate(),
+                        'estado' => true
+                    ]);
+            }
+        }
+        return redirect(back()->getTargetUrl())->with('info', 'Se ha iniciado el horometro de trabajo de las maquinarias');
+    }
+
+
 }
