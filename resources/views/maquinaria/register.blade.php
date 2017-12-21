@@ -132,13 +132,8 @@
                             <label for="" class="control-label col-xs-4">Estado</label>
                             <div class="col-xs-8">
                                 <select name="estado" id="estado" class="form-control">
-<<<<<<< HEAD
                                     <option value="1">ACTIVO</option>
                                     <option value="0">INACTIVO</option>
-=======
-                                    <option value="A">ACTIVO</option>
-                                    <option value="I">INACTIVO</option>
->>>>>>> be4ed19bbb18c1e0e3d7492ab7911671e8032de8
                                 </select>
                             </div>
                         </div>

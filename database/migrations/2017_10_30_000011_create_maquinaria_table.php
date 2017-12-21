@@ -24,11 +24,8 @@ class CreateMaquinariaTable extends Migration
             $table->string('serie_motor', 20);
             $table->date('fecha_adquisicion');
             $table->string('imagen', 300)->nullable();
-<<<<<<< HEAD
             $table->boolean('estado')->default(true);
-=======
             $table->char('estado', 1)->default('A');
->>>>>>> be4ed19bbb18c1e0e3d7492ab7911671e8032de8
             $table->boolean('eliminado');
             $table->timestamps();
             $table->foreign('id_tipo_maquinaria')

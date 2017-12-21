@@ -72,13 +72,9 @@ class GraphicsController extends Controller
                 ->join('tipo_maquinaria', 'maquinaria.id_tipo_maquinaria','=', 'tipo_maquinaria.id_tipo_maquinaria')
                 ->select('registro.*')
                 ->where([
-                    'registro.id_tipo_registro'=> $request['id_tipo_registro'],
-                    'registro.eliminado' => false,
-                    'tipo_maquinaria.id_tipo_maquinaria' => $request['id_tipo_maquinaria'],
-                ])
-                ->where([
-                    [ 'id_tipo_registro', '=', $request['id_tipo_registro'] ],
-                    [ 'eliminado', '', false ],
+                    ['tipo_maquinaria.id_tipo_maquinaria','=', $request['id_tipo_maquinaria']],
+                    [ 'registro.id_tipo_registro', '=', $request['id_tipo_registro'] ],
+                    [ 'registro.eliminado', '=', false ],
                     [DB::raw('CAST(fecha_emision AS DATE)'), '>=', DB::raw("CAST('$startDate->dateToString' AS DATE)")],
                     [DB::raw('CAST(fecha_emision AS DATE)'), '<=', DB::raw("CAST('$endDate->dateToString' AS DATE)")]
                 ])->get();

@@ -96,7 +96,6 @@ class MaquinariaController extends Controller
     public function aumentar_horometro(){
         $results = DB::table('maquinaria')->where([
             'eliminado' => false,
-<<<<<<< HEAD
             'estado' => true
         ])->get();
         foreach ($results as $item){
@@ -104,12 +103,6 @@ class MaquinariaController extends Controller
                 [DB::raw('CAST(fecha_trabajo AS DATE)'), '=', DB::raw('CAST(GETDATE() AS DATE)')],
                 ['id_maquinaria','=',$item->id_maquinaria]
             ])->count();
-=======
-            'estado' => 'A'
-        ])->get();
-        foreach ($results as $item){
-            $r = DB::table('horas_trabajadas_maquinaria')->where(DB::raw('CAST(fecha_trabajo AS DATE)'), DB::raw('CAST(GETDATE() AS DATE)'))->count();
->>>>>>> be4ed19bbb18c1e0e3d7492ab7911671e8032de8
             if ($r==0){
                 DB::table('horas_trabajadas_maquinaria')
                     ->insert([

@@ -9,6 +9,15 @@
 @section('content')
     <div class="container">
         <div class="col-xs-12">
+            @if($chart->length()==0)
+                <div class="alert alert-warning">
+                    <button class="close" data-dismiss="alert">&times;</button>
+                    <h4>No hay datos</h4>
+                    <p>No se han encontrado datos para generar el gráfico.</p>
+                </div>
+            @endif
+        </div>
+        <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title"><i class="glyphicon glyphicon-search"></i> Búsqueda</h4>

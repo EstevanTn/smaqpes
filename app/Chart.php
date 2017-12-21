@@ -23,6 +23,10 @@ class Chart
         return json_encode($this->data);
     }
 
+    public function length(){
+        return count($this->data->datasets);
+    }
+
     public static function ArrayToObject(array $attributes){
         $object = new \stdClass();
         foreach ($attributes as $key => $value){
